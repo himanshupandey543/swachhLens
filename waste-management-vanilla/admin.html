@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Admin Dashboard — SwachLens</title>
+<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="css/app.css" />
+</head>
+<body class="app-page">
+<header class="app-header">
+  <div class="app-nav">
+    <a href="admin.html" class="logo">
+      <span class="logo-badge">♻️</span><span>SwachLens</span>
+    </a>
+    <div class="nav-user">
+      <div class="nu-wrap" style="text-align:right;">
+        <div class="nu-name" id="aName">Admin</div>
+        <div class="nu-role">🛠️ Admin · Dispatch Center</div>
+      </div>
+      <div class="mini-avatar" id="aAvatar" style="background:linear-gradient(135deg,#0ea5e9,#3b82f6);">A</div>
+      <button class="icon-btn" data-theme-btn title="Toggle dark mode">🌙</button>
+      <button class="icon-btn" onclick="Auth.switchRole()" title="Logout / switch role">⏻</button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="app-hero">
+  <div class="wrap">
+    <span class="eyebrow"><span class="dot"></span> Admin Dashboard</span>
+    <h1>Dispatch Center <span class="grad">🛠️</span></h1>
+    <p>The AI recommends a crew group and member for every new report. Approve the suggestion to dispatch, then confirm the work when a group lead verifies it.</p>
+  </div>
+</section>
+
+<!-- OVERVIEW STATS -->
+<div class="wrap">
+  <div class="stats-banner">
+    <div class="stat-card reveal in">
+      <div class="sc-ico c-amber">🕓</div>
+      <div><div class="sc-num" id="statPending">0</div><div class="sc-lbl">AI Suggestions</div></div>
+    </div>
+    <div class="stat-card reveal in">
+      <div class="sc-ico c-blue">🚛</div>
+      <div><div class="sc-num" id="statProgress">0</div><div class="sc-lbl">Assigned · In Progress</div></div>
+    </div>
+    <div class="stat-card reveal in">
+      <div class="sc-ico c-violet">🔍</div>
+      <div><div class="sc-num" id="statVerify">0</div><div class="sc-lbl">Awaiting Verification</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- AI SUGGESTIONS -->
+<section class="app-section">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <span class="kicker">AI dispatch · you approve</span>
+        <h2>AI Suggestions</h2>
+        <p>Each new report is pre-matched by the AI to an area group and a crew member. Approve the match — or override it — and the task moves to In Progress.</p>
+      </div>
+    </div>
+    <div class="queue-list" id="queueList"></div>
+  </div>
+</section>
+
+<!-- IN PROGRESS -->
+<section class="app-section" style="padding-top:10px;">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <span class="kicker">On the move</span>
+        <h2>Assigned Tasks</h2>
+        <p>Work a group is currently handling. When a crew marks it collected it moves to Verification.</p>
+      </div>
+    </div>
+    <div class="reports-grid" id="progressGrid"></div>
+  </div>
+</section>
+
+<!-- VERIFICATION -->
+<section class="app-section" style="padding-top:10px;">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <span class="kicker">Group-lead sign-off</span>
+        <h2>Verification</h2>
+        <p>The crew says it's done — the group lead checks the AI-assigned work. Confirm to mark it Resolved, or send it back for rework.</p>
+      </div>
+    </div>
+    <div class="queue-list" id="verifyList"></div>
+  </div>
+</section>
+
+<div class="toast" id="toast"></div>
+
+<script src="js/config.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/state.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>
