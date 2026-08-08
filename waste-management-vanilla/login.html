@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Sign in — SwachLens</title>
-<meta name="description" content="Sign in to SwachLens as a Citizen, Employee or Municipal Admin. Report waste, work your zone, or oversee the whole city." />
+<meta name="description" content="Sign in to SwachLens as a Citizen or a Cleaning-crew Employee. Report waste, work your zone, and watch cleanups get verified." />
 <link rel="stylesheet" href="css/landing.css" />
 <script>document.documentElement.classList.add('js');</script>
 </head>
@@ -27,28 +27,19 @@
 <main class="lv-auth" id="authMain">
   <div class="lv-auth__wrap">
     <div class="lv-auth__head">
-      <span class="lv-kicker" style="justify-content:center;width:100%;">One platform · Three roles</span>
-      <h1 class="lv-display lv-display--md">Continue as a <span class="lv-em">Citizen, Employee or Admin</span></h1>
-      <p class="lv-lead" style="margin-inline:auto;">Pick the seat you belong in. The panel unfolds into that role's workflow, then your sign-in — everything stays in context.</p>
+      <span class="lv-kicker">One platform · Two roles</span>
+      <h1 class="lv-display lv-display--md">Choose your role: <span class="lv-em">Citizen or Employee.</span></h1>
+      <p class="lv-lead">Your dashboard will adapt to your workflow and guide you through sign-in.</p>
     </div>
 
     <!-- ================= ROLE SELECTOR ================= -->
     <div class="lv-auth__selector" role="tablist" aria-label="Choose a role" data-role-selector>
       <button class="lv-auth__role lv-auth__role--citizen is-active" role="tab" aria-selected="true" data-role="USER" data-role-key="citizen">
-        <span class="ar-ico" aria-hidden="true">👤</span>
         <span><b>Citizen</b><small>Report · Book · Track</small></span>
-        <span class="ar-check" aria-hidden="true">✓</span>
-      </button>
+        </button>
       <button class="lv-auth__role lv-auth__role--employee" role="tab" aria-selected="false" data-role="EMPLOYEE" data-role-key="employee">
-        <span class="ar-ico" aria-hidden="true">🚛</span>
         <span><b>Employee</b><small>Cleaning crew · Area groups</small></span>
-        <span class="ar-check" aria-hidden="true">✓</span>
-      </button>
-      <button class="lv-auth__role lv-auth__role--admin" role="tab" aria-selected="false" data-role="ADMIN" data-role-key="admin">
-        <span class="ar-ico" aria-hidden="true">🛠️</span>
-        <span><b>Admin</b><small>AI dispatch · Municipal oversight</small></span>
-        <span class="ar-check" aria-hidden="true">✓</span>
-      </button>
+        </button>
     </div>
 
     <!-- ================= CITIZEN PANEL ================= -->
@@ -142,54 +133,6 @@
           <span>Try a demo account:</span>
           <div class="lv-demo-chips">
             <button class="lv-demo-chip" type="button" data-demo="employee@test.com">👷 employee@test.com · 123456</button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================= ADMIN PANEL ================= -->
-    <section class="lv-auth__panel" data-role-panel="ADMIN" aria-labelledby="adminTitle" hidden>
-      <div class="lv-auth__side lv-auth__side--admin">
-        <span class="side-role">Municipal Admin</span>
-        <h2 id="adminTitle">One operational view for a cleaner city.</h2>
-        <p>Approve AI dispatches, manage area groups, and verify the work that keeps every ward moving.</p>
-        <ul class="side-list">
-          <li><span>🤖</span> Review &amp; approve AI dispatch suggestions</li>
-          <li><span>🗄️</span> Manage area groups and crew rosters</li>
-          <li><span>📊</span> Watch municipal performance live</li>
-          <li><span>🔎</span> Verify crew work before it's resolved</li>
-        </ul>
-        <div class="side-meta">Signing in routes you to the Admin Dispatch Center.</div>
-      </div>
-      <div class="lv-auth__form">
-        <h3>Admin access</h3>
-        <p>Log in or register to oversee municipal operations.</p>
-        <div class="lv-seg" data-seg role="tablist" aria-label="Log in or register">
-          <button data-mode="login" class="is-active" role="tab" aria-selected="true">Log in</button>
-          <button data-mode="register" role="tab" aria-selected="false">Register</button>
-        </div>
-        <form data-form novalidate>
-          <div class="lv-field" data-show="register" style="display:none;">
-            <label for="adminName">Full name</label>
-            <input data-name id="adminName" type="text" placeholder="e.g. Priya Admin" autocomplete="name" />
-          </div>
-          <div class="lv-field">
-            <label for="adminEmail">Email</label>
-            <input data-email id="adminEmail" type="email" placeholder="admin@example.com" autocomplete="email" />
-          </div>
-          <div class="lv-field">
-            <label for="adminPass">Password</label>
-            <input data-pass id="adminPass" type="password" placeholder="••••••••" autocomplete="current-password" />
-          </div>
-          <div class="lv-auth__err" data-err role="alert"></div>
-          <button class="lv-auth__submit lv-auth__submit--admin" type="submit" data-submit>
-            <span class="lv-spinner"></span><span data-submit-label>Log in as Admin</span><span class="lv-arr">→</span>
-          </button>
-        </form>
-        <div class="lv-auth__demo">
-          <span>Try a demo account:</span>
-          <div class="lv-demo-chips">
-            <button class="lv-demo-chip" type="button" data-demo="admin@test.com">🛠️ admin@test.com · 123456</button>
           </div>
         </div>
       </div>

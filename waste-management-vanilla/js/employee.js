@@ -17,12 +17,16 @@
   document.getElementById('eRole').textContent = `🚛 ${roster.specialty} · ${roster.name}`;
   document.getElementById('greetName').textContent = roster.name.split(' ')[0];
   document.getElementById('eAvatar').textContent = roster.name.split(' ').map((w) => w[0]).join('').slice(0, 2).toUpperCase();
-  document.getElementById('empBlurb').textContent = `You're ${roster.name} (${roster.specialty}) in ${MY_GROUP ? MY_GROUP.name : 'your group'}. Tasks the AI routes to your group appear here.${I_AM_LEAD ? ' You are the group lead — work marked collected comes to you for verification.' : ''}`;
+  document.getElementById('empBlurb').textContent = `You're ${roster.name} (${roster.specialty}) in ${MY_GROUP ? MY_GROUP.name : 'your group'}. Tasks the AI routes to your group appear here.${I_AM_LEAD ? ' As group lead you approve the AI dispatches, then verify your group’s completed work.' : ''}`;
 
-  /* Group leads see their verification queue. */
+  /* Group leads see their dispatch + verification queues. */
   const leadSection = document.getElementById('leadVerification');
   if (I_AM_LEAD && leadSection) leadSection.style.display = '';
   else if (leadSection) leadSection.style.display = 'none';
+
+  const dispatchSection = document.getElementById('leadDispatch');
+  if (I_AM_LEAD && dispatchSection) dispatchSection.style.display = '';
+  else if (dispatchSection) dispatchSection.style.display = 'none';
 
   const iconOf = (r) => (Store.WASTE_TYPES.find((w) => w.key === r.wasteType) || {}).icon || '🗑️';
   const sevColor = { Low: '#16a34a', Medium: '#f59e0b', High: '#ef4444' };
@@ -67,7 +71,7 @@
     const doneEl = document.getElementById('doneGrid');
 
     if (!mine.length) {
-      taskEl.innerHTML = `<div class="empty-state" style="grid-column:1/-1;"><span class="e-ico">📭</span><b>No tasks assigned yet</b>The AI will suggest a task for your group soon — the admin approves it and it lands here.</div>`;
+      taskEl.innerHTML = `<div class="empty-state" style="grid-column:1/-1;"><span class="e-ico">📭</span><b>No tasks assigned yet</b>The AI will suggest a task for your group soon — your group lead approves it and it lands here.</div>`;
     } else if (!active.length && !verify.length) {
       taskEl.innerHTML = `<div class="empty-state" style="grid-column:1/-1;"><span class="e-ico">🎉</span><b>All caught up!</b>No active or pending-verification tasks right now.</div>`;
     } else {
@@ -88,6 +92,59 @@
           toast('Collected — sent to your group lead for verification 🔍');
           renderTasks(); renderVerify();
         }, 500);
+      })
+    );
+  }
+
+  /* ---------- AI dispatch approval (only for the lead) ---------- */
+  function renderDispatch() {
+    const el = document.getElementById('leadDispatchGrid');
+    if (!el) return;
+    if (!I_AM_LEAD) return;
+    const list = Store.pending().filter((r) => r.suggestedGroupId === roster.groupId);
+    if (!list.length) {
+      el.innerHTML = `<div class="empty-state"><span class="e-ico">🤖</span><b>No dispatches waiting on you</b>New reports in your group land here — they're already out with a crew.</div>`;
+      return;
+    }
+    el.innerHTML = list.map((r, i) => {
+      const sugM = Store.member(r.suggestedMemberId);
+      const memberOpts = Store.membersOf(roster.groupId).map((e) =>
+        `<option value="${e.id}" ${e.id === r.suggestedMemberId ? 'selected' : ''}>${e.icon} ${e.name}</option>`
+      ).join('');
+      return `
+      <div class="queue-row reveal in" style="animation-delay:${Math.min(i * 60, 360)}ms">
+        <div class="qr-ico" style="background:#eef3ff;">🤖</div>
+        <div class="qr-main">
+          <div class="qr-title">${iconOf(r)} ${escapeHtml(r.wasteType)}${r.isBooking ? ' · 🗓️ Booking' : ''} · ${escapeHtml(r.location)}</div>
+          <div class="qr-meta">
+            <span>📨 by ${escapeHtml(r.reporterName)}</span>
+            <span>⚡ ${r.severity}</span>
+            <span>${timeAgo(r.createdAt)}</span>
+          </div>
+          <div class="qr-meta" style="margin-top:4px;">
+            <span style="font-weight:800;color:var(--green-600);">🤖 AI suggests:</span>
+            <span>${sugM ? sugM.icon + ' ' + sugM.name : 'any member'}</span>
+            <span style="opacity:.72;">· ${escapeHtml(r.suggestionReason)}</span>
+          </div>
+        </div>
+        <div class="qr-actions">
+          <select id="ldm-${r.id}" aria-label="Pick crew member">${memberOpts}</select>
+          <button class="btn btn-primary btn-small" data-lead-approve="${r.id}">📤 Approve &amp; Dispatch</button>
+        </div>
+      </div>`;
+    }).join('');
+
+    el.querySelectorAll('[data-lead-approve]').forEach((btn) =>
+      btn.addEventListener('click', () => {
+        const id = btn.dataset.leadApprove;
+        const memberId = document.getElementById('ldm-' + id).value;
+        btn.disabled = true;
+        btn.innerHTML = '<span class="rp-spinner"></span> Dispatching…';
+        setTimeout(() => {
+          Store.approveAssign(id, { groupId: roster.groupId, memberId });
+          toast('Dispatched to ' + (Store.member(memberId)?.name || 'crew') + ' 🚛');
+          renderDispatch(); renderTasks();
+        }, 450);
       })
     );
   }
@@ -141,7 +198,8 @@
     );
   }
 
-  Store.onChange(() => { renderTasks(); renderVerify(); });
+  Store.onChange(() => { renderDispatch(); renderTasks(); renderVerify(); });
+  renderDispatch();
   renderTasks();
   renderVerify();
 })();

@@ -1,0 +1,37 @@
+/* =========================================================
+ * SwachLens — Hero background layer (screen-recording video)
+ * The video fills the hero, sits behind the text + illustration,
+ * and is muted/looped so it behaves like an ambient animation.
+ * A subtle scrim keeps the headline legible over any footage.
+ * ========================================================= */
+
+/* Video layer — fills the hero, stays behind everything, never blocks clicks */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  pointer-events: none;
+  display: block;
+}
+
+/* Legibility scrim — sits between the video and the hero content */
+.hero-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  /* Stronger on the left where the headline sits (text is light now).
+     Tune these alphas to taste if the footage is busy/light. */
+  background:
+    linear-gradient(90deg, rgba(6, 20, 12, 0.55), rgba(6, 20, 12, 0.22) 46%, rgba(6, 20, 12, 0.40)),
+    linear-gradient(180deg, rgba(6, 20, 12, 0.34) 0%, transparent 22%, transparent 78%, rgba(6, 20, 12, 0.34) 100%);
+}
+
+/* Lift the hero content above the video + scrim */
+#top > .lv-wrap {
+  position: relative;
+  z-index: 2;
+}

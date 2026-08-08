@@ -9,7 +9,7 @@
  * API surface: Auth.init(), Auth.login(email, pass), Auth.register(...),
  *              Auth.logout(), Auth.session(), Auth.require(role), Auth.users
  *
- * Roles: 'USER' | 'EMPLOYEE' | 'ADMIN'
+ * Roles: 'USER' | 'EMPLOYEE'
  * ===================================================================== */
 (function () {
   const SESSION_KEY = 'swachlens.session';
@@ -18,7 +18,6 @@
   const ROLE_META = {
     USER: { label: 'Citizen', icon: '👤', path: 'user.html', color: '#16a34a' },
     EMPLOYEE: { label: 'Employee', icon: '🚛', path: 'employee.html', color: '#8b5cf6' },
-    ADMIN: { label: 'Admin', icon: '🛠️', path: 'admin.html', color: '#0ea5e9' },
   };
 
   /* ================= Mock provider ================= */
@@ -29,7 +28,6 @@
       const demo = [
         { email: 'user@test.com', password: '123456', name: 'Aarav Citizen', role: 'USER' },
         { email: 'employee@test.com', password: '123456', name: 'John Driver', role: 'EMPLOYEE' },
-        { email: 'admin@test.com', password: '123456', name: 'Priya Admin', role: 'ADMIN' },
       ];
       localStorage.setItem(USERS_KEY, JSON.stringify(demo.map((u) => ({ ...u, id: 'usr_' + btoa(u.email).replace(/=/g, '').toLowerCase() }))));
     },
@@ -131,7 +129,6 @@
 
   function inferRole(email) {
     const e = email.toLowerCase();
-    if (e.includes('admin')) return 'ADMIN';
     if (e.includes('employee') || e.includes('crew')) return 'EMPLOYEE';
     return 'USER';
   }
@@ -189,7 +186,12 @@
     require(role) {
       const s = this.session();
       if (!s) { nav('login.html'); return null; }
-      if (role && s.role !== role) { nav(ROLE_META[s.role].path); return null; }
+      if (role && s.role !== role) {
+        // Role may have changed (e.g. an old 'ADMIN' session) — fall back to login.
+        const target = ROLE_META[s.role] && ROLE_META[s.role].path;
+        nav(target || 'login.html');
+        return null;
+      }
       return s;
     },
 

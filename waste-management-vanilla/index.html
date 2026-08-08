@@ -6,6 +6,7 @@
 <title>SwachLens — A cleaner city starts with one report</title>
 <meta name="description" content="SwachLens is a citizen-first waste-management platform for Indian municipalities. Report waste, dispatch the right crew, verify the cleanup — in one civic loop." />
 <link rel="stylesheet" href="css/landing.css" />
+<link rel="stylesheet" href="css/hero-bg.css" />
 <script>document.documentElement.classList.add('js');</script>
 </head>
 <body class="landing-page">
@@ -44,12 +45,16 @@
 
 <!-- ================= 01 — HERO ================= -->
 <section class="lv-hero" id="top">
+  <video class="hero-bg" id="heroBg" autoplay muted loop playsinline preload="auto" aria-hidden="true" tabindex="-1">
+    <source src="assets/hero-demo.mp4" type="video/mp4" />
+  </video>
+  <div class="hero-scrim" aria-hidden="true"></div>
   <div class="lv-wrap">
     <div class="lv-hero__grid">
       <div class="lv-hero__copy">
         <span class="lv-hero__eyebrow lv-reveal in"><span class="dot"></span> Nagar Nigam · Smart Sanitation</span>
-        <h1 class="lv-display lv-display--lg reveal" data-words>
-          A cleaner city<br>starts with<br><span class="lv-em">one report.</span>
+        <h1 class="lv-display lv-display--lg" data-hero-type data-hero-phrase="A cleaner city starts with one report." data-hero-accent="report." aria-label="A cleaner city starts with one report.">
+          <span data-hero-type-text></span><span class="lv-em" data-hero-type-accent></span><span class="hero-cursor" aria-hidden="true">_</span>
         </h1>
         <p class="lv-lead lv-reveal" style="--d:.15s;">Spot an overflowing bin, an illegal dump, a missed pickup. Snap a photo, and SwachLens routes it to the right cleaning crew — then verifies the job is actually done. One civic loop, from citizen to every street.</p>
         <div class="lv-hero__actions lv-reveal" style="--d:.25s;">
@@ -57,7 +62,7 @@
           <a class="lv-btn lv-btn--ghost lv-btn--lg" href="#system">Explore SwachLens</a>
         </div>
         <div class="lv-hero__meta lv-reveal" style="--d:.35s;">
-          <div><b>3×</b><span>roles in one civic loop</span></div>
+          <div><b>2×</b><span>roles in one civic loop</span></div>
           <div><b>AI-first</b><span>dispatch + verification</span></div>
           <div><b>100%</b><span>free for every city</span></div>
         </div>
@@ -180,7 +185,7 @@
       <div class="lv-pipeline__step" style="--d:.5s"><div class="pv-ico">✅</div><b>Verified clean</b><small>Resolved, city-wide visible</small></div>
     </div>
     <div class="lv-pipeline__note lv-reveal">
-      <span>🔒</span> Dispatches are AI-suggested but <b>approved by a human admin</b> — and every finished job is checked before it's marked resolved.
+      <span>🔒</span> Dispatches are AI-suggested but <b>approved by a group lead</b> — and every finished job is checked before it's marked resolved.
     </div>
   </div>
 </section>
@@ -190,8 +195,8 @@
   <div class="lv-wrap">
     <div class="lv-sechead lv-sechead--center lv-reveal">
       <span class="lv-kicker">For you</span>
-      <h2 class="lv-display lv-display--md">Three roles, one cleaner city.</h2>
-      <p class="lv-lead" style="margin-inline:auto;">Pick where you sit in the loop. Tap through to each role's own workflow and sign in from there.</p>
+      <h2 class="lv-display lv-display--md">Two roles, one cleaner city.</h2>
+      <p class="lv-lead">Pick where you sit in the loop. Tap through to each role's own workflow and sign in from there.</p>
     </div>
     <div class="lv-roles__grid lv-stagger">
       <a class="lv-role-card lv-role-card--citizen" href="login.html#citizen" style="--d:.0s">
@@ -210,112 +215,50 @@
         <p>Your zone's tasks land in one queue. Clear pickups along your route, upload proof of work, and get each job verified by your group lead.</p>
         <span class="lv-role-card__cta">Work your zone <span class="lv-arr">→</span></span>
       </a>
-      <a class="lv-role-card lv-role-card--admin" href="login.html#admin" style="--d:.24s">
-        <span class="lv-role-card__spark" aria-hidden="true">🏛️</span>
-        <span class="lv-role-card__no">03</span>
-        <span class="lv-role-card__ico">🛠️</span>
-        <h3>Municipal Admin</h3>
-        <p>Approve AI dispatches, run area groups, keep every crew on track, and verify the work that keeps the whole city visible from one console.</p>
-        <span class="lv-role-card__cta">Oversee the city <span class="lv-arr">→</span></span>
-      </a>
     </div>
   </div>
 </section>
 
 
-<!-- ================= 07 — ADMIN DIVE ================= -->
-<section class="lv-section lv-dive lv-dive--admin" id="for-admins">
-  <div class="lv-wrap">
-    <div class="lv-dive__head">
-      <div class="lv-dive__visual">
-        <span class="lv-dive__tag">Dispatch Center</span>
-        <svg viewBox="0 0 520 420" role="img" aria-label="Administrative map showing dispatch pins, zones and AI route lines">
-          <defs>
-            <linearGradient id="asky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#dfe9f5"/><stop offset="1" stop-color="#eef3f8"/></linearGradient>
-            <linearGradient id="aidline" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0e86d4"/><stop offset="1" stop-color="#34d399"/></linearGradient>
-          </defs>
-          <rect width="520" height="420" fill="url(#asky)"/>
-          <!-- grid -->
-          <g stroke="#9db7cc" stroke-width="1" opacity=".5">
-            <line x1="0" y1="84" x2="520" y2="84"/><line x1="0" y1="168" x2="520" y2="168"/><line x1="0" y1="252" x2="520" y2="252"/><line x1="0" y1="336" x2="520" y2="336"/>
-            <line x1="104" y1="0" x2="104" y2="420"/><line x1="208" y1="0" x2="208" y2="420"/><line x1="312" y1="0" x2="312" y2="420"/><line x1="416" y1="0" x2="416" y2="420"/>
-          </g>
-          <!-- zones -->
-          <ellipse cx="150" cy="150" rx="120" ry="90" fill="#d7e7f5" opacity=".6"/>
-          <ellipse cx="360" cy="160" rx="130" ry="110" fill="#d8f1e4" opacity=".6"/>
-          <ellipse cx="260" cy="310" rx="150" ry="120" fill="#f4ead6" opacity=".6"/>
-          <!-- dispatch route -->
-          <path d="M180 120 C 260 150, 320 200, 380 280" fill="none" stroke="url(#aidline)" stroke-width="3" stroke-dasharray="7 6" opacity=".85"/>
-          <!-- pins -->
-          <g>
-            <circle cx="180" cy="120" r="16" fill="#ef4444"/><text x="180" y="125" text-anchor="middle" font-size="12" fill="#fff" font-weight="700">!</text>
-          </g>
-          <g>
-            <circle cx="380" cy="280" r="16" fill="#2aa35c"/><text x="380" y="285" text-anchor="middle" font-size="13" fill="#fff">✓</text>
-          </g>
-          <g>
-            <rect x="330" y="60" width="150" height="70" rx="14" fill="#fff" opacity=".92"/>
-            <text x="352" y="84" font-size="13" fill="#0b5a8c" font-weight="700">AI suggestion</text>
-            <text x="352" y="104" font-size="12" fill="#0b3a63">North zone · 3 min</text>
-            <text x="352" y="120" font-size="17">🤖🧹</text>
-          </g>
-        </svg>
-      </div>
-      <div>
-        <span class="lv-kicker">Municipal operations</span>
-        <h2 class="lv-display lv-display--sm lv-dive__h2">One operating view<br>for a <span class="lv-em">cleaner city.</span></h2>
-        <p class="lv-lead">Every report, every AI dispatch, every crew out on a route, every verification — the whole municipality in one screen, with a human approving every move.</p>
-        <div class="lv-dive__flow">
-          <div class="lv-dive__flow-item"><span class="fi-no">01</span><span class="fi-ico">🗂️</span><b>Live queue</b><small>All pending reports, one list</small></div>
-          <div class="lv-dive__flow-item"><span class="fi-no">02</span><span class="fi-ico">🤖</span><b>Review dispatch</b><small>Approve or override AI picks</small></div>
-          <div class="lv-dive__flow-item"><span class="fi-no">03</span><span class="fi-ico">📊</span><b>Groups &amp; analytics</b><small>Area crew performance</small></div>
-          <div class="lv-dive__flow-item"><span class="fi-no">04</span><span class="fi-ico">🔎</span><b>Verify work</b><small>Sign off cleanups and resolve</small></div>
-        </div>
-        <div class="lv-dive__cta">
-          <a class="lv-btn lv-btn--primary" href="login.html#admin">Municipal Admin <span class="lv-arr">→</span></a>
-          <span class="lv-demo-hint">Demo: admin@test.com · 123456</span>
-        </div>
-      </div>
-    </div>
-      </div>
-</section>
 
 <!-- ================= 08 — AI WORKFLOW ================= -->
 <section class="lv-section lv-ai" id="ai">
   <div class="lv-wrap">
     <div class="lv-ai__grid">
       <div>
-        <div class="lv-sechead" style="margin-bottom:34px;">
+        <div class="lv-sechead lv-sechead--compact">
           <span class="lv-kicker">AI + municipal work</span>
-          <h2 class="lv-display lv-display--sm">Not "AI magic."<br>A <span class="lv-em">routing engine.</span></h2>
-          <p class="lv-lead">AI reads the photo and location, rates urgency, and picks the nearest capable crew. You still see the why, and a human still approves.</p>
+          <h2 class="lv-display lv-display--sm">AI reads the report.<br>People <span class="lv-em">own the dispatch.</span></h2>
+          <p class="lv-lead">From a citizen's photo and pin, the engine classifies the waste, scores its urgency and suggests the nearest capable crew — with the reasons attached, so a human can approve, adjust or override fast.</p>
         </div>
         <div class="lv-ai__steps lv-stagger">
-          <div class="lv-ai__step" style="--d:.0s"><span class="ai-num">1</span><div><b>Waste report lands</b><small>Image + location + severity score arrive together.</small><span class="ai-chip">📸 photo · 📍 pin · ⚡ severity</span></div></div>
-          <div class="lv-ai__step" style="--d:.12s"><span class="ai-num">2</span><div><b>AI classifies the waste</b><small>Plastic, organic, e-waste, hazardous — each needs the right crew.</small></div></div>
-          <div class="lv-ai__step is-live" style="--d:.24s"><span class="ai-num">3</span><div><b>Priority score</b><small>A numerical urgency the dispatch console can sort on.</small></div></div>
-          <div class="lv-ai__step" style="--d:.36s"><span class="ai-num">4</span><div><b>Nearest area crew</b><small>Load balanced to the ward, specialist over generic.</small></div></div>
-          <div class="lv-ai__step" style="--d:.48s"><span class="ai-num">5</span><div><b>Dispatch for approval</b><small>Queued for the admin to okay — nothing self-fires.</small></div></div>
+          <div class="lv-ai__step" style="--d:.0s"><span class="ai-num">1</span><div><b>Identifies the waste</b><small>Plastic, organic, e-waste, hazardous — each type has a matching crew.</small></div></div>
+          <div class="lv-ai__step is-live" style="--d:.12s"><span class="ai-num">2</span><div><b>Urgency score</b><small>One ranked number the console can sort on.</small></div></div>
+          <div class="lv-ai__step" style="--d:.24s"><span class="ai-num">3</span><div><b>Nearest capable crew</b><small>Load-balanced by ward — the specialist over the generalist.</small></div></div>
+          <div class="lv-ai__step" style="--d:.36s"><span class="ai-num">4</span><div><b>Queues for a human</b><small>Passed to a group lead to okay or override — never fires alone.</small></div></div>
         </div>
       </div>
 
       <div class="lv-ai__panel lv-reveal lv-reveal--right">
+        <div class="lv-ai__panel-head">
+          <b>Live AI dispatch</b>
+          <span class="live"><i></i> rendering</span>
+        </div>
         <div class="lv-ai__score">
           <div class="big" data-count="87">0</div>
           <div class="lbl">Priority score</div>
-          <div style="font-size:13px;color:var(--lv-muted);margin-top:4px;">High urgency · E-waste · overdue 0d</div>
+          <div class="lv-ai__sub">High urgency · E-waste · overdue 0d</div>
         </div>
         <div class="lv-ai__bars">
           <div class="lv-ai__bar"><div class="bar-lbl"><span>Location match</span><span>92</span></div><div class="bar-track"><i class="bar-fill" data-w="92%"></i></div></div>
           <div class="lv-ai__bar"><div class="bar-lbl"><span>Specialist fit</span><span>88</span></div><div class="bar-track"><i class="bar-fill" data-w="88%"></i></div></div>
-          <div class="lv-ai__bar"><div class="bar-lbl"><span>Load balance</span><span>74</span></div><div class="bar-track"><i class="bar-fill" data-w="74%"></i></div></div>
+          <div class="lv-ai__bar"><div class="bar-lbl"><span>Crew load</span><span>74</span></div><div class="bar-track"><i class="bar-fill" data-w="74%"></i></div></div>
         </div>
         <div class="lv-ai__match">
           <span class="av">🧹</span>
-          <div><b>East Zone · Ravi Kumar</b><small>E-waste specialist · recommended by AI</small></div>
-          <span style="margin-left:auto;font-weight:800;color:var(--lv-green-700);">Approve</span>
+          <div><b>E-waste crew · East Zone</b><small>Nearest specialist match — proposed by the engine</small></div>
+          <span class="lv-ai__queue">⏳ Queued for a group lead</span>
         </div>
-        <p style="font-size:12.5px;color:var(--lv-muted);margin-top:12px;line-height:1.5;">Demo scores illustrate how the dispatch console prioritises. Real city values are configurable per municipality.</p>
       </div>
     </div>
   </div>
@@ -334,7 +277,7 @@
         <div class="lv-impact__stat lv-reveal" style="--d:.12s;">
           <span class="is-no"><span data-count="2">0</span></span>
           <span class="is-step">Dispatch</span>
-          <p>AI picks — an admin approves. Crew assigned.</p>
+          <p>AI picks — a group lead approves. Crew assigned.</p>
         </div>
         <div class="lv-impact__stat lv-reveal" style="--d:.24s;">
           <span class="is-no"><span data-count="3">0</span></span>
@@ -348,7 +291,7 @@
         </div>
       </div>
     </div>
-    <div class="lv-sechead lv-sechead--center lv-reveal" style="margin:56px auto 0;">
+    <div class="lv-sechead lv-sechead--center lv-sechead--below lv-reveal">
       <span class="lv-kicker">One closed loop</span>
       <h2 class="lv-display lv-display--sm">From report to verified-clean,<br>the loop <span class="lv-em">is the impact.</span></h2>
     </div>
@@ -356,19 +299,18 @@
 </section>
 
 <!-- ================= 10 — SOCIAL PROOF ================= -->
-<section class="lv-section" style="padding-top:20px;">
+<section class="lv-section lv-section--tight-top">
   <div class="lv-wrap">
     <div class="lv-quotes lv-stagger">
       <figure class="lv-quote" style="--d:.0s"><blockquote>I reported a spill at the bus stop with one photo. Two days later it was gone and marked verified — I could actually see the result.</blockquote><footer><span class="q-av" style="background:linear-gradient(135deg,#1f8a4c,#2aa35c);">A</span><div><b>Aarav Sharma</b><small>Citizen · North Zone</small></div></footer></figure>
       <figure class="lv-quote" style="--d:.12s"><blockquote>My daily queue used to be guesswork. Now the AI lines up my routes and my lead verifies each one — my work finally has proof.</blockquote><footer><span class="q-av" style="background:linear-gradient(135deg,#7c5cff,#9b7bff);">J</span><div><b>John Driver</b><small>Cleaning Crew · East Zone</small></div></footer></figure>
-      <figure class="lv-quote" style="--d:.24s"><blockquote>The city used to live in spreadsheet land. Now I approve AI dispatches and see every contest crew on one screen.</blockquote><footer><span class="q-av" style="background:linear-gradient(135deg,#0e86d4,#3b82f6);">P</span><div><b>Priya Sharma</b><small>Municipal Admin</small></div></footer></figure>
     </div>
-    <p class="lv-cta__hint" style="text-align:center;margin-top:26px;">Demo testimonials — replace with real resident stories as communities onboard.</p>
+    <p class="lv-cta__hint">Demo testimonials — replace with real resident stories as communities onboard.</p>
   </div>
 </section>
 
 <!-- ================= 11 — FINAL CTA ================= -->
-<section class="lv-section lv-cta" style="padding-top:20px;">
+<section class="lv-section lv-section--tight-top lv-cta">
   <div class="lv-cta__orbs"><i></i><i></i><i></i></div>
   <div class="lv-wrap">
     <div class="lv-cta__inner lv-reveal">
@@ -385,7 +327,7 @@
     <div class="lv-footer__grid">
       <div class="lv-footer__brand">
         <a href="index.html" class="lv-logo" style="color:#fff;"><span class="lv-logo__mark">🚮</span> SwachLens</a>
-        <p>One civic loop for Indian cities: citizens report, crews clear, admins verify — and no bin remembers broken.</p>
+        <p>One civic loop for Indian cities: citizens report, crews clear, group leads verify — and no bin stays full.</p>
         <div class="lv-footer__badges" style="margin-top:16px;"><span>🇮🇳 Built for Nagar Nigam</span><span>♻️ Municipal sanitation</span></div>
       </div>
       <div>
@@ -398,7 +340,6 @@
         <h4>For you</h4>
         <a href="login.html#citizen">For Citizens</a>
         <a href="login.html#employee">For Employees</a>
-        <a href="login.html#admin">For Municipalities</a>
       </div>
       <div>
         <h4>Get started</h4>
@@ -419,5 +360,7 @@
 <script src="js/auth.js"></script>
 <script src="js/state.js"></script>
 <script src="js/landing.js"></script>
+<script src="js/hero-bg.js"></script>
+<script src="js/hero-type.js"></script>
 </body>
 </html>
