@@ -14,8 +14,8 @@
     return;
   }
 
-  const ROLE_LABEL = { USER: 'Citizen', EMPLOYEE: 'Employee', ADMIN: 'Admin' };
-  const ROLE_KEY = { USER: 'citizen', EMPLOYEE: 'employee', ADMIN: 'admin' };
+  const ROLE_LABEL = { USER: 'Citizen', EMPLOYEE: 'Employee' };
+  const ROLE_KEY = { USER: 'citizen', EMPLOYEE: 'employee' };
 
   const selector = document.querySelector('[data-role-selector]');
   const roleBtns = selector ? Array.from(selector.querySelectorAll('[data-role]')) : [];
@@ -138,7 +138,6 @@
   const hashRole = {
     citizen: 'USER',
     employee: 'EMPLOYEE',
-    admin: 'ADMIN',
   };
   const fromHash = hashRole[(window.location.hash || '').replace('#', '').toLowerCase()];
   if (fromHash) selectRole(fromHash);

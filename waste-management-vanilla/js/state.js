@@ -7,7 +7,7 @@
  *
  * Flow:
  *   PENDING   (citizen reports OR books) → AI suggests a group + member
- *   ADMIN approves the suggestion → IN_PROGRESS (assigned to a crew member)
+ *   GROUP LEAD approves the suggestion → IN_PROGRESS (assigned to a crew member)
  *   CREW marks collected → VERIFICATION (awaiting the group lead)
  *   LEAD verifies → RESOLVED  (or sends back → IN_PROGRESS)
  *
@@ -28,7 +28,7 @@
     { key: 'Hazardous', icon: '☣️', desc: 'Chemicals, paint & medical waste' },
   ];
 
-  /* ------------- Area groups (each has a lead = the group's admin) ------------- */
+  /* ------------- Area groups (each has a lead = the group's lead employee) ------------- */
   const GROUPS = [
     { id: 'grp_north', name: 'North Zone',  zone: 'north', icon: '🏞️', leadId: 'emp_sarah' },
     { id: 'grp_east',  name: 'East Zone',   zone: 'east',  icon: '🏙️', leadId: 'emp_john' },
@@ -143,7 +143,7 @@
       const id = 'WM-' + Math.random().toString(36).slice(2, 7).toUpperCase();
       const stripped = { id, wasteType, location, desc, severity, photo, reporter, reporterName: reporterName || 'Citizen', isBooking, scheduledAt };
 
-      // AI immediately suggests a group + member (admin still approves it).
+      // AI immediately suggests a group + member (the group lead still approves it).
       const s = this.suggest(stripped);
       const r = {
         ...stripped,
@@ -163,7 +163,7 @@
       return r;
     },
 
-    /* Admin approves the AI suggestion (or an override) → dispatch to a group + member. */
+    /* Group lead approves the AI suggestion (or an override) → dispatch to a group + member. */
     approveAssign(id, { groupId, memberId } = {}) {
       const list = this.load();
       const r = list.find((x) => x.id === id);

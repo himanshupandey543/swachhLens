@@ -66,7 +66,7 @@
 </div>
 
 <!-- CTA BANNER -->
-<section class="app-section" style="padding-top:40px;">
+<section class="app-section app-section--flush-top">
   <div class="wrap">
     <div class="cta-banner reveal">
       <div>
@@ -88,7 +88,7 @@
         <p>Everything you've submitted — watch it move from Pending → In Progress → Verification → Resolved.</p>
       </div>
     </div>
-    <div class="pills reveal" id="pills" style="margin-bottom:22px;"></div>
+    <div class="pills reveal" id="pills"></div>
     <div class="reports-grid" id="reportsGrid"></div>
   </div>
 </section>
@@ -118,13 +118,13 @@
       <button class="icon-btn" data-close-sheet="reportSheet" aria-label="Close">✕</button>
     </div>
     <form id="reportForm" novalidate>
-      <div class="seg booking-toggle" id="bookingToggle" style="margin:0 0 18px;">
+      <div class="seg booking-toggle" id="bookingToggle">
         <button type="button" data-bmode="report" class="active">🚨 Report now</button>
         <button type="button" data-bmode="book">🗓️ Book a pickup</button>
       </div>
       <div class="field full" id="bookingFields" style="display:none;">
         <label>Pickup date &amp; time <span class="req">*</span></label>
-        <div class="loc-row" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <div class="loc-row loc-row--split">
           <input id="bDate" type="date" aria-label="Pickup date" />
           <input id="bTime" type="time" aria-label="Pickup time" />
         </div>
@@ -166,7 +166,7 @@
           <span class="err" id="errDesc">Please describe the issue briefly.</span>
         </div>
       </div>
-      <button type="submit" class="btn btn-primary" style="width:100%; margin-top:8px;">Submit Report →</button>
+      <button type="submit" class="btn btn-primary form-submit">Submit Report →</button>
     </form>
   </div>
 </div>
