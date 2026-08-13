@@ -9,5 +9,5 @@ window.SW_CONFIG = {
   TICKER: 'Smart Waste Management',
   API_URL: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
     ? 'http://localhost:8000/api'
-    : 'https://YOUR-RAILWAY-APP.up.railway.app/api', // TODO: Update with your Railway URL
+    : 'http://swachhlens-production.up.railway.app', // TODO: Update with your Railway URL
 };
