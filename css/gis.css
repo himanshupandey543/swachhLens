@@ -1,0 +1,359 @@
+/* =====================================================================
+ * SwachLens — Live GIS & Citizen "On-the-way Hand-off" module
+ * ---------------------------------------------------------------------
+ * Self-contained: on the landing (css/landing.css) it reuses the --lv-*
+ * tokens; on the dashboards (.app-page) the scoped fallback block below
+ * supplies the same tokens + dark theme, so the module works anywhere.
+ * ===================================================================== */
+
+/* ---- Standalone design tokens (dashboards don't load landing.css) ---- */
+.app-page {
+  --lv-green-950: #022c22; --lv-green-900: #064e3b; --lv-green-800: #065f46;
+  --lv-green-700: #047857; --lv-green-600: #059669; --lv-green-500: #10b981;
+  --lv-green-400: #34d399; --lv-green-300: #6ee7b7; --lv-green-100: #d1fae5; --lv-green-50: #ecfdf5;
+  --lv-emerald: #10b981; --lv-mint: #34d399;
+  --lv-ink: #0f172a; --lv-ink-soft: #334155; --lv-muted: #475569;
+  --lv-paper: #f9f9f6; --lv-cream: #f2f3ee; --lv-card: #ffffff;
+  --lv-line: #dde2d9; --lv-line-soft: #e7ebe3;
+  --lv-charcoal: #0b120f;
+  --lv-radius-lg: 28px; --lv-radius-md: 18px; --lv-radius-sm: 12px;
+  --lv-font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --lv-font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --lv-shadow-sm: 0 2px 10px rgba(18,36,26,.06);
+  --lv-shadow-md: 0 14px 40px rgba(18,36,26,.10);
+  --lv-shadow-lg: 0 30px 80px rgba(18,36,26,.16);
+  --lv-glass-border: rgba(16, 185, 129, .28);
+}
+html[data-theme="dark"] .app-page {
+  /* Matches the high-contrast slate dark theme (styles.css Phase-1 refresh) */
+  --lv-card: #1e293b;
+  --lv-ink: #e2e8f0; --lv-ink-soft: #94a3b8; --lv-muted: #94a3b8;
+  --lv-line: #334155; --lv-line-soft: #1e293b;
+  --lv-green-800: #166534; --lv-green-700: #15803d; --lv-green-600: #16a34a;
+  --lv-green-500: #22c55e; --lv-green-400: #4ade80; --lv-green-300: #86efac;
+  --lv-green-100: #14532d; --lv-green-50: #052e16;
+  --lv-emerald: #22c55e; --lv-mint: #4ade80;
+  --lv-shadow-sm: 0 2px 10px rgba(0,0,0,.45);
+  --lv-shadow-md: 0 14px 40px rgba(0,0,0,.5);
+  --lv-shadow-lg: 0 30px 80px rgba(0,0,0,.6);
+}
+@keyframes gis-pulse { 0%,100% { opacity: 1; } 50% { opacity: .3; } }
+
+/* ---- Shell ---- */
+.gis-shell {
+  position: relative;
+  max-width: 980px; margin: 0 auto;
+  background: color-mix(in srgb, var(--lv-card) 78%, transparent);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--lv-glass-border);
+  border-radius: var(--lv-radius-lg);
+  padding: 18px;
+  box-shadow: var(--lv-shadow-lg), inset 0 1px 0 rgba(255,255,255,.06);
+}
+
+/* ---- ETA banner ---- */
+.gis-eta {
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  padding: 12px 16px; margin-bottom: 14px;
+  border: 1px solid var(--lv-glass-border);
+  border-radius: var(--lv-radius-md);
+  background: color-mix(in srgb, var(--lv-green-50) 55%, transparent);
+  font-size: 14.5px; color: var(--lv-ink-soft);
+}
+.gis-eta__live {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 12px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;
+  color: var(--lv-green-600);
+}
+.gis-eta__live i {
+  width: 8px; height: 8px; border-radius: 50%; background: currentColor;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--lv-green-500) 20%, transparent);
+  animation: gis-pulse 1.6s infinite;
+}
+.gis-eta b { font-family: var(--lv-font-display); font-size: 16px; color: var(--lv-green-700); }
+[data-theme="dark"] .gis-eta b { color: var(--lv-green-400); }
+
+/* ---- Map frame (modern vector canvas) ---- */
+.gis-map {
+  position: relative; aspect-ratio: 840 / 520; overflow: hidden;
+  border-radius: var(--lv-radius-md);
+  border: 1px solid var(--lv-line);
+  background: linear-gradient(160deg, color-mix(in srgb, var(--lv-green-50) 55%, var(--lv-card)), color-mix(in srgb, var(--lv-green-50) 15%, var(--lv-card)));
+}
+.gis-map::after { content: ""; position: absolute; inset: 0; pointer-events: none; border-radius: inherit; background: radial-gradient(120% 90% at 50% -10%, transparent 55%, color-mix(in srgb, var(--lv-ink) 7%, transparent)); }
+.gis-map svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.gis-map__bg { fill: transparent; }
+.gis-water { fill: color-mix(in srgb, #7dd3fc 38%, var(--lv-card)); }
+html[data-theme="dark"] .gis-water { fill: color-mix(in srgb, #0ea5e9 22%, #0f172a); }
+.gis-block { fill: var(--lv-card); stroke: color-mix(in srgb, var(--lv-line) 85%, transparent); stroke-width: 1.2; filter: drop-shadow(0 1px 2px rgba(6,20,12,.10)); }
+html[data-theme="dark"] .gis-block { fill: #1e293b; stroke: #2b3a52; }
+.gis-park { fill: color-mix(in srgb, var(--lv-green-300) 50%, transparent); stroke: color-mix(in srgb, var(--lv-green-400) 45%, transparent); stroke-width: 1.5; }
+html[data-theme="dark"] .gis-park { fill: color-mix(in srgb, #22c55e 16%, #0f172a); stroke: color-mix(in srgb, #22c55e 35%, transparent); }
+/* Roads — casing + fill (no more plain gridlines) */
+.gis-road-casing line { stroke: color-mix(in srgb, var(--lv-line) 60%, var(--lv-card)); }
+.gis-road-casing line.art { stroke-width: 15; }
+.gis-road-casing line.loc { stroke-width: 9; }
+.gis-road-fill line { stroke: var(--lv-card); }
+.gis-road-fill line.art { stroke-width: 11; }
+.gis-road-fill line.loc { stroke-width: 5; }
+html[data-theme="dark"] .gis-road-casing line { stroke: #26334a; }
+html[data-theme="dark"] .gis-road-fill line { stroke: #1e293b; }
+.gis-route-todo { fill: none; stroke: color-mix(in srgb, var(--lv-green-400) 55%, transparent); stroke-width: 4; stroke-dasharray: 2 9; stroke-linecap: round; }
+.gis-route-done { fill: none; stroke: var(--lv-green-500); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 6px color-mix(in srgb, var(--lv-green-500) 60%, transparent)); }
+
+/* ---- Dustbin markers (clean, color-coded status pins) ---- */
+.gis-bins { position: absolute; inset: 0; z-index: 2; }
+.bin-marker {
+  position: absolute; transform: translate(-50%, -100%);
+  display: flex; flex-direction: column; align-items: center;
+  cursor: pointer; border: none; background: none; padding: 0; outline: none;
+  animation: bin-in .5s cubic-bezier(.16,1,.3,1) backwards;
+}
+@keyframes bin-in { from { opacity: 0; transform: translate(-50%, -82%) scale(.5); } to { opacity: 1; transform: translate(-50%, -100%) scale(1); } }
+.bin-marker:focus-visible .pin { outline: 3px solid var(--lv-green-500); outline-offset: 2px; }
+.bin-marker .pin {
+  width: 34px; height: 34px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg);
+  display: grid; place-items: center;
+  border: 2.5px solid var(--lv-card);
+  box-shadow: 0 6px 14px rgba(6,20,12,.28);
+  transition: transform .18s;
+}
+.bin-marker .pin b { transform: rotate(45deg); font-size: 10.5px; font-weight: 800; color: #fff; line-height: 1; }
+.bin-marker:hover .pin { transform: rotate(-45deg) scale(1.12); }
+.bin-marker.s-normal .pin { background: var(--lv-green-500); }
+.bin-marker.s-watch  .pin { background: #f59e0b; }
+.bin-marker.s-watch  .pin b { color: #713f12; }
+.bin-marker.s-alert  .pin { background: #ef4444; animation: pin-pulse 1.6s infinite; }
+@keyframes pin-pulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(239,68,68,.45), 0 6px 14px rgba(6,20,12,.28); }
+  50%     { box-shadow: 0 0 0 10px rgba(239,68,68,0), 0 6px 14px rgba(6,20,12,.28); }
+}
+/* Streamlined popup info card (hover or tap) */
+.bin-pop {
+  position: absolute; bottom: calc(100% + 12px); left: 50%;
+  width: 200px; z-index: 6; text-align: left;
+  background: var(--lv-card); border: 1px solid var(--lv-glass-border); border-radius: 14px;
+  padding: 12px 14px; box-shadow: var(--lv-shadow-md);
+  display: flex; flex-direction: column; gap: 8px;
+  font-size: 12px; color: var(--lv-ink-soft);
+  opacity: 0; visibility: hidden;
+  transform: translateX(-50%) translateY(4px);
+  transition: opacity .18s, transform .18s, visibility 0s .18s;
+}
+.bin-marker.show .bin-pop, .bin-marker:hover .bin-pop {
+  opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0);
+  transition: opacity .18s, transform .18s;
+}
+.bin-pop::after {
+  content: ""; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+  border: 7px solid transparent; border-top-color: var(--lv-card);
+}
+.bp-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.bp-head b { font-family: var(--lv-font-display); font-size: 15px; color: var(--lv-ink); }
+.bp-status { font-size: 10px; font-weight: 800; letter-spacing: .4px; text-transform: uppercase; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
+.bp-status.ok { background: color-mix(in srgb, var(--lv-green-500) 15%, transparent); color: var(--lv-green-600); }
+.bp-status.watch { background: #fef3c7; color: #b45309; }
+.bp-status.alert { background: #fee2e2; color: #b91c1c; }
+.bp-bar { height: 7px; border-radius: 999px; background: var(--lv-line); overflow: hidden; }
+.bp-bar i { display: block; height: 100%; width: var(--f); border-radius: 999px; }
+.bin-marker.s-normal .bp-bar i { background: var(--lv-green-500); }
+.bin-marker.s-watch  .bp-bar i { background: #f59e0b; }
+.bin-marker.s-alert  .bp-bar i { background: #ef4444; }
+.bp-fill { display: flex; justify-content: space-between; font-size: 12px; }
+.bp-fill b { color: var(--lv-ink); }
+.bp-meta { font-size: 11.5px; color: var(--lv-muted); }
+
+/* ---- Citizen pin ---- */
+.citizen-pin {
+  position: absolute; transform: translate(-50%, -50%); z-index: 3;
+  display: flex; flex-direction: column; align-items: center; pointer-events: none;
+}
+.citizen-pin i {
+  width: 16px; height: 16px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg);
+  background: var(--lv-emerald); border: 2.5px solid var(--lv-card);
+  box-shadow: 0 4px 10px rgba(6,20,12,.25);
+}
+.citizen-pin span {
+  margin-top: 8px; font-size: 10.5px; font-weight: 800;
+  background: var(--lv-card); border: 1px solid var(--lv-line);
+  border-radius: 6px; padding: 1px 6px; box-shadow: var(--lv-shadow-sm);
+  color: var(--lv-ink-soft);
+}
+.citizen-pin.active i { animation: citizen-pulse 1.2s infinite; }
+@keyframes citizen-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(16,185,129,.5); }
+  100% { box-shadow: 0 0 0 16px rgba(16,185,129,0); }
+}
+
+/* ---- Truck marker ---- */
+.truck-marker {
+  position: absolute; transform: translate(-50%, -50%); z-index: 4;
+  display: flex; flex-direction: column; align-items: center;
+  transition: left .16s linear, top .16s linear; will-change: left, top; pointer-events: none;
+}
+.truck-ico {
+  width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; font-size: 23px;
+  background: var(--lv-card); border: 2px solid var(--lv-green-600);
+  box-shadow: 0 8px 20px color-mix(in srgb, var(--lv-green-500) 35%, transparent);
+}
+.truck-lbl {
+  margin-top: 5px; font-size: 10.5px; white-space: nowrap;
+  background: var(--lv-card); border: 1px solid var(--lv-line);
+  border-radius: 8px; padding: 3px 8px; box-shadow: var(--lv-shadow-sm); color: var(--lv-ink-soft);
+}
+.truck-lbl b { display: block; color: var(--lv-ink); }
+.truck-lbl span { font-size: 9.5px; opacity: .8; }
+
+/* ---- Floating hand-off CTA ---- */
+.gis-cta {
+  position: absolute; right: 14px; bottom: 14px; z-index: 6;
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 13px 20px; border-radius: 999px; border: none; cursor: pointer;
+  font-family: inherit; text-align: left; color: #fff;
+  background: linear-gradient(135deg, var(--lv-green-700), var(--lv-green-800));
+  box-shadow: 0 14px 34px color-mix(in srgb, var(--lv-green-500) 40%, transparent), 0 0 20px rgba(16,185,129,.15), inset 0 1px 0 rgba(255,255,255,.18);
+  transition: transform .2s, box-shadow .2s;
+}
+.gis-cta::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit;
+  background: linear-gradient(110deg, transparent 20%, rgba(255,255,255,.28) 50%, transparent 80%);
+  transform: translateX(-130%); transition: transform .65s ease;
+}
+.gis-cta:hover { transform: translateY(-2px); }
+.gis-cta:hover::after { transform: translateX(130%); }
+.gis-cta:active { transform: translateY(0) scale(.98); }
+.gis-cta:focus-visible { outline: 3px solid color-mix(in srgb, var(--lv-green-500) 45%, transparent); outline-offset: 3px; }
+.gcta-emoji { font-size: 20px; line-height: 1; }
+.gcta-txt b { display: block; font-size: 14.5px; font-weight: 800; line-height: 1.15; }
+.gcta-txt small { display: block; font-size: 11px; opacity: .85; }
+
+/* ---- Legend ---- */
+.gis-foot { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; margin-top: 14px; }
+.gis-legend { list-style: none; display: flex; gap: 16px; flex-wrap: wrap; font-size: 12.5px; font-weight: 700; color: var(--lv-ink-soft); }
+.gis-legend li { display: inline-flex; align-items: center; gap: 6px; }
+.bin-dot { width: 12px; height: 12px; border-radius: 4px; display: inline-block; }
+.bin-dot.s-normal { background: var(--lv-green-500); }
+.bin-dot.s-watch  { background: #f59e0b; }
+.bin-dot.s-alert  { background: #ef4444; }
+
+/* ---- Crew dispatch notification card ---- */
+.gis-dispatch {
+  margin-top: 14px; padding: 16px 18px; border-radius: var(--lv-radius-md);
+  border: 1px solid color-mix(in srgb, #ef4444 30%, transparent);
+  background: color-mix(in srgb, var(--lv-card) 88%, transparent);
+  display: flex; flex-direction: column; gap: 6px;
+  font-size: 14px; color: var(--lv-ink-soft);
+  animation: gis-card-in .4s ease backwards;
+}
+.gis-dispatch .gd-tag {
+  align-self: flex-start; font-size: 11px; font-weight: 800; letter-spacing: .5px; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 999px; background: #fef2f2; color: #b91c1c;
+}
+.gis-dispatch p b { color: var(--lv-ink); }
+.gd-eta { font-size: 12.5px; font-weight: 800; color: var(--lv-green-600); }
+.gis-dispatch.is-arrived {
+  border-color: color-mix(in srgb, var(--lv-green-500) 45%, transparent);
+  background: color-mix(in srgb, var(--lv-green-50) 55%, var(--lv-card));
+}
+.gis-dispatch.is-arrived .gd-tag { background: var(--lv-green-50); color: var(--lv-green-700); }
+@keyframes gis-card-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+/* ---- Hand-off modal ---- */
+.gis-modal {
+  position: fixed; inset: 0; z-index: 120;
+  display: flex; align-items: center; justify-content: center; padding: 20px;
+  background: rgba(6,20,12,.55); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  opacity: 0; visibility: hidden; transition: opacity .28s, visibility 0s .28s;
+}
+.gis-modal.open { opacity: 1; visibility: visible; transition: opacity .28s; }
+.gis-modal__card {
+  position: relative; width: 100%; max-width: 460px;
+  background: var(--lv-card); border: 1px solid var(--lv-glass-border); border-radius: var(--lv-radius-lg);
+  padding: 30px 28px 28px; box-shadow: var(--lv-shadow-lg);
+  transform: translateY(16px) scale(.98); transition: transform .28s cubic-bezier(.16,1,.3,1);
+}
+.gis-modal.open .gis-modal__card { transform: none; }
+.gis-modal__close {
+  position: absolute; top: 16px; right: 16px; width: 40px; height: 40px;
+  border-radius: 12px; border: 1px solid var(--lv-line);
+  background: var(--lv-cream); cursor: pointer; font-size: 16px; color: var(--lv-muted);
+}
+.gis-modal__close:hover { border-color: var(--lv-green-600); color: var(--lv-green-700); }
+.gis-modal__lead { font-size: 14px; color: var(--lv-ink-soft); margin: 12px 0 20px; }
+.gis-field { margin-bottom: 18px; }
+.gis-field > label { display: block; font-size: 13px; font-weight: 800; margin-bottom: 9px; color: var(--lv-ink); }
+.gis-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.gis-options[data-point-options] { grid-template-columns: repeat(2, 1fr); }
+.gis-options button {
+  padding: 13px 10px; border-radius: 13px; border: 1.5px solid var(--lv-line);
+  background: var(--lv-cream); color: var(--lv-ink-soft); cursor: pointer;
+  font: inherit; font-size: 13px; font-weight: 700; text-align: center;
+  transition: border-color .15s, background .15s, color .15s, transform .15s;
+}
+.gis-options button:hover { border-color: var(--lv-green-500); transform: translateY(-1px); }
+.gis-options button.sel { border-color: var(--lv-green-600); background: var(--lv-green-50); color: var(--lv-green-700); }
+.gis-buffer {
+  font-size: 13px; padding: 12px 14px; border-radius: 12px;
+  background: var(--lv-green-50); border: 1px solid var(--lv-glass-border);
+  color: var(--lv-ink-soft); margin-bottom: 18px;
+}
+.gis-buffer b { color: var(--lv-green-700); }
+.gis-buffer.fail { background: #fef2f2; border-color: rgba(239,68,68,.3); color: #b91c1c; }
+.gis-buffer.fail b { color: #b91c1c; }
+.gis-kicker {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 12.5px; font-weight: 800; letter-spacing: 2.2px; text-transform: uppercase;
+  color: var(--lv-green-700); margin-bottom: 12px;
+}
+.gis-kicker::before { content: ""; width: 26px; height: 2px; background: var(--lv-emerald); border-radius: 2px; }
+.gis-modal__card h3 {
+  font-family: var(--lv-font-display); font-weight: 600; line-height: 1.1; letter-spacing: -.015em;
+  font-size: clamp(24px, 4vw, 30px); color: var(--lv-ink);
+}
+.gis-confirm {
+  width: 100%; position: relative; overflow: hidden;
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  padding: 15px 28px; border-radius: 999px; border: 1px solid transparent; cursor: pointer;
+  font-family: inherit; font-weight: 700; font-size: 15.5px; color: #fff;
+  background: linear-gradient(135deg, var(--lv-green-700), var(--lv-green-800));
+  box-shadow: 0 12px 28px color-mix(in srgb, var(--lv-green-500) 42%, transparent), 0 0 20px rgba(16,185,129,.15), inset 0 1px 0 rgba(255,255,255,.18);
+  transition: transform .2s, box-shadow .2s, opacity .2s;
+}
+.gis-confirm::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(110deg, transparent 20%, rgba(255,255,255,.28) 50%, transparent 80%);
+  transform: translateX(-130%); transition: transform .65s ease;
+}
+.gis-confirm:hover:not(:disabled) { transform: translateY(-2px); }
+.gis-confirm:hover:not(:disabled)::after { transform: translateX(130%); }
+.gis-confirm:disabled { opacity: .55; cursor: not-allowed; }
+
+/* ---- Responsive ---- */
+@media (max-width: 720px) {
+  .gis-shell { padding: 12px; }
+  .gis-eta b { font-size: 14px; }
+  .gis-cta { right: 10px; bottom: 10px; padding: 11px 16px; max-width: calc(100% - 20px); }
+  .gcta-txt b { font-size: 13px; }
+  .gcta-txt small { font-size: 10px; }
+  .gis-options { grid-template-columns: 1fr; }
+  .gis-options[data-point-options] { grid-template-columns: 1fr 1fr; }
+  .bin-pop { width: 176px; }
+}
+@media (max-width: 420px) {   /* keep markers inside the short mobile map */
+  .bin-marker .pin { width: 28px; height: 28px; }
+  .bin-marker .pin b { font-size: 9px; }
+  .bin-pop { width: 172px; }
+  .truck-ico { width: 36px; height: 36px; font-size: 18px; }
+  .truck-lbl { font-size: 9px; padding: 2px 6px; }
+  .truck-lbl b { font-size: 9.5px; }
+  .citizen-pin i { width: 12px; height: 12px; }
+  .gis-eta { font-size: 13px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bin-marker, .bin-marker.s-alert .pin, .citizen-pin.active i { animation: none !important; }
+  .bin-pop { transition: none; }
+  .truck-marker { transition: none; }
+  .gis-dispatch, .gis-modal__card { animation: none; }
+  .gis-modal { transition: opacity .001s; }
+}
