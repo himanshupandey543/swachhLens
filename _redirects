@@ -1,0 +1,2 @@
+# Netlify Redirects - Proxy API requests to Railway backend
+/api/*  https://swachhlens-production-b927.up.railway.app/api/:splat  200!
