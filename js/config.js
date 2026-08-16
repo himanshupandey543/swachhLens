@@ -8,6 +8,6 @@ window.SW_CONFIG = {
   APP_NAME: 'SwachLens',
   TICKER: 'Smart Waste Management',
   API_URL: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-    ? 'http://swachhlens-production.up.railway.app'
-    : 'http://swachhlens-production.up.railway.app', // TODO: Update with your Railway URL
+    ? 'http://localhost:8000'
+    : 'https://swachhlens-production-b927.up.railway.app',
 };
