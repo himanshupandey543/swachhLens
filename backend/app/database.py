@@ -375,14 +375,6 @@ _INITIATIVES = [
      "Hands-on workshop: turn kitchen waste into garden soil.", "workshop", "🌱",
      "West Zone Library", 9, 40),
 ]
-_DEMO_CITIZENS = [
-    ("vedant.pratap@test.com", "Vedant Pratap", 38),
-    ("ankit.kumar@test.com", "Ankit Kumar", 35),
-    ("riya.singh@test.com", "Riya Singh", 31),
-    ("ayush.singh@test.com", "Ayush Singh", 29),
-    ("shivam.kumar@test.com", "Shivam Kumar", 26),
-    ("neha.sharma@test.com", "Neha Sharma", 23),
-]
 _DAY_MS = 86400000
 
 
@@ -437,45 +429,8 @@ def _seed_initiatives() -> None:
 
 
 def _seed_leaderboard_demo() -> None:
-    """Demo citizen accounts + resolved reports so the leaderboard is data-driven."""
-    now = int(time.time() * 1000)
-    existing_users = {u["email"] for u in query("SELECT email FROM users")}
-    existing_reports = {r["id"] for r in query("SELECT id FROM reports")}
-
-    waste = ["Plastic", "Organic", "E-Waste", "Hazardous"]
-    locations = ["Ward 4 north gate", "Ward 4 east market", "Ward 4 west library",
-                 "Ward 4 central park", "Ward 4 bus depot"]
-    sevs = ["Low", "Medium", "High"]
-
-    for k, (email, name, total) in enumerate(_DEMO_CITIZENS):
-        if email not in existing_users:
-            execute(
-                "INSERT INTO users (id, email, password_hash, name, role, employee_id, created_at)"
-                " VALUES (?, ?, ?, ?, ?, ?, ?)",
-                ("usr_" + security.sha256_short(email), email,
-                 security.hash_password("123456"), name, "USER", None, now),
-            )
-        prefix = "WM-DEMO-" + "".join(ch for ch in name.split()[0][:4] if ch.isalnum()).upper()
-        resolved = []
-        streak_days = min(total, 14)
-        day_offsets = set(range(streak_days)) | {streak_days + 3 + (i % 45) for i in range(max(total - streak_days, 0))}
-        for i, days_back in enumerate(sorted(day_offsets, reverse=True)):
-            rid = f"{prefix}-{i + 1:02d}"
-            if rid in existing_reports:
-                continue
-            rts = now - days_back * _DAY_MS
-            created = rts - (45 * 60000 + (i * 137 % 1_800_000))
-            execute(
-                "INSERT INTO reports (id, waste_type, location, description, severity, photo,"
-                " reporter, reporter_name, is_booking, scheduled_at, suggested_group_id,"
-                " suggested_member_id, suggestion_reason, assigned_group_id, assigned_to,"
-                " status, verified_by, created_at, resolved_at, history)"
-                " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                (rid, waste[i % 4], locations[i % len(locations)], f"Seeded demo cleanup ({name}).",
-                 sevs[i % 3], "", email, name, 0, None, None, None, None, None, None,
-                 "RESOLVED", "Group Lead", created, rts,
-                 json.dumps([{"at": rts - 60000, "to": "RESOLVED", "by": name}])),
-            )
+    """Disabled: no demo leaderboard data."""
+    pass
 
 
 def _migrate() -> None:
