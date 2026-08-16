@@ -4,7 +4,7 @@
     "builder": "NIXPACKS"
   },
   "deploy": {
-    "startCommand": "python run.py",
+    "startCommand": "python cleanup_demo.py && python run.py",
     "healthcheckPath": "/api/constants",
     "healthcheckTimeout": 300,
     "restartPolicyType": "ON_FAILURE",
