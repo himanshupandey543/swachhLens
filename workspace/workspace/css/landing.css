@@ -1,0 +1,1116 @@
+/* =====================================================================
+ * SwachLens — Premium civic-tech landing + auth design system
+ * ---------------------------------------------------------------------
+ * New editorial, municipal-sanitation identity for the public pages
+ * (index.html + login.html). The in-app dashboards keep using
+ * styles.css + css/app.css; this file layers on top of those tokens
+ * without touching them.
+ * ===================================================================== */
+
+/* ---------- Fonts ---------- */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* =====================================================================
+ * 1. TOKENS
+ * ===================================================================== */
+:root {
+  /* Civic palette — eco-smart emerald + mint on clean off-white (Phase 2).
+     Primary accent #10B981 (emerald-500) · secondary #34D399 (mint-400).
+     Deep emerald (green-700/800) carries text/buttons for WCAG contrast. */
+  --lv-green-950: #022c22;
+  --lv-green-900: #064e3b;
+  --lv-green-800: #065f46;
+  --lv-green-700: #047857;
+  --lv-green-600: #059669;
+  --lv-green-500: #10b981;   /* emerald — primary accent */
+  --lv-green-400: #34d399;   /* mint — secondary accent */
+  --lv-green-300: #6ee7b7;
+  --lv-green-100: #d1fae5;
+  --lv-green-50: #ecfdf5;
+
+  --lv-emerald: #10b981;     /* alias — primary accent */
+  --lv-mint: #34d399;        /* alias — secondary accent */
+  --lv-mint-soft: #d9f6ea;
+
+  --lv-ink: #0f172a;         /* deep charcoal — high-contrast text (#0F172A) */
+  --lv-ink-soft: #334155;    /* slate-700 */
+  --lv-muted: #475569;       /* slate-600 */
+  --lv-paper: #f9f9f6;       /* light bg (#F9F9F6) */
+  --lv-cream: #f2f3ee;       /* raised surface */
+  --lv-card: #ffffff;
+  --lv-line: #dde2d9;
+  --lv-line-soft: #e7ebe3;
+
+  /* Glass recipe (Phase 2) — emerald hairline + frosted fill */
+  --lv-glass-border: rgba(16, 185, 129, .28);   /* stronger emerald hairline (Phase 2 adjust) */
+  --lv-glass-blur: blur(14px);
+
+  /* Dispatch map palette */
+  --lv-map-bg: #e9eef3;
+  --lv-map-road: #fbfcf9;
+  --lv-map-road-casing: #c7d3de;
+  --lv-map-road-line: #b6c3cd;
+  --lv-map-zone1: #d7e7f5;
+  --lv-map-zone2: #e6f3e6;
+  --lv-map-zone3: #f3ead6;
+  --lv-map-park: #d4e8c6;
+  --lv-map-label: #5d7266;
+
+  --lv-charcoal: #0b120f;    /* dark bg (#0B120F) */
+  --lv-charcoal-2: #101a14;
+  --lv-charcoal-3: #18231c;
+
+  /* Earth accents */
+  --lv-terracotta: #c76b3f;
+  --lv-ochre: #c9962e;
+  --lv-saffron: #e2a024;
+  --lv-sky: #3b82f6;
+
+  /* Role accents (match in-app) */
+  --lv-citizen: #047857;      /* emerald-700 — citizen green, white-text safe */
+  --lv-citizen-soft: #d9f6ea;
+  --lv-employee: #7c5cff;
+  --lv-employee-soft: #ece9ff;
+  --lv-admin: #0e86d4;
+  --lv-admin-soft: #e1f1fb;
+
+  --lv-radius-lg: 28px;
+  --lv-radius-md: 18px;
+  --lv-radius-sm: 12px;
+
+  --lv-font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --lv-font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --lv-shadow-sm: 0 2px 10px rgba(18, 36, 26, .06);
+  --lv-shadow-md: 0 14px 40px rgba(18, 36, 26, .10);
+  --lv-shadow-lg: 0 30px 80px rgba(18, 36, 26, .16);
+
+  /* Unified container + section rhythm (Phase 1).
+     Maps to Tailwind: max-w-7xl / px-4 sm:px-6 lg:px-8 / py-16 md:py-24. */
+  --lv-container: 80rem;         /* 1280px — was 1200px before Phase 1 */
+  --lv-gutter-sm: 1rem;          /* px-4      (<640px)  */
+  --lv-gutter-md: 1.5rem;        /* sm:px-6   (≥640px)  */
+  --lv-gutter-lg: 2rem;          /* lg:px-8   (≥1024px) */
+  --lv-section-y: 4rem;          /* py-16     (<768px)  */
+  --lv-section-y-lg: 6rem;       /* md:py-24  (≥768px)  */
+}
+
+[data-theme="dark"] {
+  --lv-paper: #0b120f;       /* dark bg (#0B120F) */
+  --lv-cream: #0e1713;       /* (#0E1713) */
+  --lv-card: #111b15;
+  --lv-ink: #e2e8f0;         /* slate-200 */
+  --lv-ink-soft: #94a3b8;    /* slate-400 */
+  --lv-muted: #64748b;       /* slate-500 */
+  --lv-line: #1e2c24;
+  --lv-line-soft: #17241d;
+  --lv-charcoal: #e2e8f0;
+  --lv-charcoal-2: #cbd5e1;
+  --lv-charcoal-3: #94a3b8;
+  --lv-green-100: #123524;
+  --lv-green-50: #0d2519;
+  --lv-citizen-soft: #0d2b1c;
+  --lv-employee-soft: #1d1730;
+  --lv-admin-soft: #0f2433;
+
+  /* Dispatch map palette (dark) */
+  --lv-map-bg: #10181e;
+  --lv-map-road: #2c3a44;
+  --lv-map-road-casing: #232f38;
+  --lv-map-road-line: #101a21;
+  --lv-map-zone1: #173148;
+  --lv-map-zone2: #143129;
+  --lv-map-zone3: #3d2f1d;
+  --lv-map-park: #1c3321;
+  --lv-map-label: #9db1a7;
+  --lv-shadow-sm: 0 2px 10px rgba(0,0,0,.35);
+  --lv-shadow-md: 0 14px 40px rgba(0,0,0,.45);
+  --lv-shadow-lg: 0 30px 80px rgba(0,0,0,.55);
+}
+
+/* =====================================================================
+ * 2. BASE
+ * ===================================================================== */
+.lv-skip {
+  position: absolute; left: -999px; top: 8px; z-index: 200;
+  background: var(--lv-green-700); color: #fff; padding: 12px 20px; border-radius: 10px;
+  font-weight: 700; font-size: 14px;
+}
+.lv-skip:focus { left: 8px; }
+
+.landing-page,
+.auth-page {
+  background: var(--lv-paper);
+  color: var(--lv-ink);
+  font-family: var(--lv-font-body);
+  -webkit-font-smoothing: antialiased;
+  padding-bottom: 0;
+  overflow-x: hidden;
+}
+.landing-page .reveal,
+.auth-page .reveal { transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1); }
+
+.landing-page ::selection { background: var(--lv-green-600); color: #fff; }
+
+/* No body-scroll lock — the drawer opens without freezing the page. The scrim is
+   decorative (pointer-events:none) so scrolling behind the open drawer still works. */
+.landing-page::after {
+  content: ""; position: fixed; inset: 0; z-index: 88;
+  background: rgba(6, 20, 12, .40);
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+  opacity: 0; pointer-events: none; transition: opacity .3s;
+}
+.landing-page.landing-menu-open::after { opacity: 1; }
+
+.landing-page a, .landing-page button { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+
+/* Toast (ui.js) restyled for the public pages */
+.toast {
+  position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(20px);
+  background: var(--lv-charcoal); color: #fff; padding: 15px 26px; border-radius: 14px;
+  font-weight: 700; font-size: 14.5px; z-index: 300; box-shadow: var(--lv-shadow-lg);
+  opacity: 0; pointer-events: none; transition: opacity .3s, transform .3s; text-align: center; max-width: 92vw;
+}
+[data-theme="dark"] .toast { background: var(--lv-green-800); }
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* One container, one rhythm — every section, nav and footer uses .lv-wrap */
+.lv-wrap { width: 100%; max-width: var(--lv-container); margin: 0 auto; padding-inline: var(--lv-gutter-sm); }
+@media (min-width: 640px)  { .lv-wrap { padding-inline: var(--lv-gutter-md); } }
+@media (min-width: 1024px) { .lv-wrap { padding-inline: var(--lv-gutter-lg); } }
+
+/* Section rhythm — py-16 → md:py-24 */
+.lv-section { padding-block: var(--lv-section-y); position: relative; }
+@media (min-width: 768px) { .lv-section { padding-block: var(--lv-section-y-lg); } }
+.lv-section--tall { padding-block: var(--lv-section-y); }
+@media (min-width: 768px) { .lv-section--tall { padding-block: 150px; } }
+.lv-section--tight-top { padding-top: 20px; }
+
+.lv-kicker {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 12.5px; font-weight: 800; letter-spacing: 2.2px; text-transform: uppercase;
+  color: var(--lv-green-700); margin-bottom: 18px;
+}
+[data-theme="dark"] .lv-kicker { color: var(--lv-green-400); }
+.lv-kicker::before { content: ""; width: 26px; height: 2px; background: var(--lv-emerald); border-radius: 2px; }
+
+.lv-display {
+  font-family: var(--lv-font-display);
+  font-weight: 600;
+  line-height: 1.08;               /* descender/ascender room for Fraunces + italics — no more tight-leading clipping */
+  letter-spacing: -.015em;
+  font-size: clamp(40px, 6.4vw, 78px);
+}
+.lv-display--lg { font-size: clamp(52px, 8.6vw, 108px); }
+.lv-display--md { font-size: clamp(32px, 4.6vw, 54px); }
+.lv-display--sm { font-size: clamp(26px, 3.2vw, 40px); }
+@media (max-width: 420px) {   /* 320–420: keep display headlines from towering on small phones */
+  .lv-display--lg { font-size: clamp(40px, 13vw, 52px); }
+  .lv-display--md { font-size: clamp(28px, 9vw, 34px); }
+  .lv-display--sm { font-size: clamp(24px, 7.6vw, 28px); }
+  .lv-lead { font-size: 16px; }
+}
+
+.lv-lead { font-size: clamp(16px, 1.5vw, 19px); line-height: 1.65; color: var(--lv-ink-soft); max-width: 560px; }
+
+.lv-em { font-style: italic; color: var(--lv-green-600); }
+[data-theme="dark"] .lv-em { color: var(--lv-green-400); }
+
+/* Section dark blocks for rhythm */
+.lv-dark {
+  background: var(--lv-charcoal);
+  color: var(--lv-ink);
+}
+.lv-dark .lv-kicker { color: var(--lv-green-400); }
+.lv-dark .lv-lead { color: var(--lv-ink-soft); }
+[data-theme="dark"] .lv-dark { background: #0b120f; }
+.lv-dark-ink { color: #fff; }
+[data-theme="dark"] .lv-dark-ink { color: #0b120f; }
+.lv-dark .lv-line-rule { border-color: rgba(255,255,255,.12); }
+
+/* =====================================================================
+ * 3. BUTTONS
+ * ===================================================================== */
+.lv-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  padding: 15px 28px; border-radius: 999px;
+  font-family: inherit; font-weight: 700; font-size: 15.5px;
+  border: 1px solid transparent; cursor: pointer; text-decoration: none;
+  transition: transform .22s cubic-bezier(.2,.8,.2,1), box-shadow .22s, background .22s, color .22s, border-color .22s;
+  white-space: nowrap;
+}
+.lv-btn:hover { transform: translateY(-2px); }
+.lv-btn:active { transform: translateY(0) scale(.98); }
+.lv-btn:focus-visible { outline: 3px solid color-mix(in srgb, var(--lv-green-500) 45%, transparent); outline-offset: 3px; }
+
+.lv-btn--primary {
+  position: relative; overflow: hidden;
+  background: linear-gradient(135deg, var(--lv-green-700), var(--lv-green-800)); color: #fff;
+  box-shadow: 0 12px 28px color-mix(in srgb, var(--lv-green-500) 42%, transparent), 0 0 20px rgba(16, 185, 129, .15), inset 0 1px 0 rgba(255,255,255,.18);
+}
+/* Shimmer sweep on hover (Phase 4) */
+.lv-btn--primary::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(110deg, transparent 20%, rgba(255,255,255,.28) 50%, transparent 80%);
+  transform: translateX(-130%); transition: transform .65s ease;
+}
+.lv-btn--primary:hover { background: linear-gradient(135deg, var(--lv-green-700), var(--lv-green-900)); box-shadow: 0 18px 40px color-mix(in srgb, var(--lv-green-500) 55%, transparent), inset 0 1px 0 rgba(255,255,255,.14); }
+.lv-btn--primary:hover::after { transform: translateX(130%); }
+
+.lv-btn--ghost {
+  background: transparent; color: var(--lv-ink); border-color: var(--lv-line);
+}
+.lv-btn--ghost:hover { border-color: var(--lv-green-600); color: var(--lv-green-700); background: var(--lv-green-50); }
+[data-theme="dark"] .lv-btn--ghost:hover { color: var(--lv-green-300); }
+
+.lv-btn--light {
+  background: #fff; color: var(--lv-charcoal);
+  box-shadow: 0 14px 34px rgba(0,0,0,.22);
+}
+.lv-btn--light:hover { transform: translateY(-2px); box-shadow: 0 20px 44px rgba(0,0,0,.3); }
+
+.lv-btn--lg { padding: 18px 36px; font-size: 16.5px; }
+.lv-btn--sm { padding: 13px 20px; font-size: 14px; min-height: 44px; }
+
+.lv-btn .lv-arr { transition: transform .25s cubic-bezier(.2,.8,.2,1); }
+.lv-btn:hover .lv-arr { transform: translateX(4px); }
+
+/* =====================================================================
+ * 4. NAVIGATION
+ * ===================================================================== */
+.lv-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 90;
+  background: rgba(11, 18, 15, .85);           /* #0B120F /85 — glass header */
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  backdrop-filter: blur(16px) saturate(1.4);
+  border-bottom: 1px solid rgba(255, 255, 255, .10);   /* border-white/10 */
+  padding: 18px 0;
+}
+/* Scroll state — glass stays, deepens slightly once the page scrolls under it */
+.lv-nav.is-scrolled {
+  background: rgba(11, 18, 15, .92);
+  border-bottom-color: rgba(255, 255, 255, .14);
+  padding: 18px 0;
+}
+.lv-nav__inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+
+.lv-logo {
+  display: inline-flex; align-items: center; gap: 12px;
+  font-weight: 800; font-size: 20px; color: #fff; text-decoration: none; letter-spacing: -.01em;
+}
+.lv-logo__mark {
+  width: 42px; height: 42px; border-radius: 13px; display: grid; place-items: center;
+  background: linear-gradient(140deg, var(--lv-green-500), var(--lv-green-800));
+  color: #fff; font-size: 20px; box-shadow: 0 8px 20px color-mix(in srgb, var(--lv-green-600) 40%, transparent);
+}
+
+.lv-nav__links { display: flex; align-items: center; gap: 6px; list-style: none; }
+.lv-nav__links a {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 8px 16px; border-radius: 999px;
+  font-size: 14.5px; font-weight: 600; color: rgba(255,255,255,.75); text-decoration: none;
+}
+.lv-nav__links a:hover { color: #fff; background: rgba(255,255,255,.12); }
+.lv-nav__cta { display: flex; align-items: center; gap: 10px; }
+
+/* Frosted nav → light ghost buttons; no hover lift or shimmer inside the bar */
+.lv-nav__cta .lv-btn { transition: none; }
+.lv-nav__cta .lv-btn:hover { transform: none; }
+.lv-nav__cta .lv-btn--primary::after { display: none; }
+.lv-nav__cta .lv-btn--ghost { color: #fff; border-color: rgba(255,255,255,.35); background: transparent; }
+.lv-nav__cta .lv-btn--ghost:hover { color: #000; background: #fff; border-color: #fff; }
+
+.lv-burger {
+  display: none; width: 44px; height: 44px; border-radius: 12px; border: 1px solid rgba(255,255,255,.2);
+  background: rgba(255,255,255,.08); cursor: pointer; place-items: center; position: relative;
+}
+.lv-burger span, .lv-burger span::before, .lv-burger span::after {
+  content: ""; display: block; width: 20px; height: 2px; border-radius: 2px; background: #fff;
+  position: absolute; left: 50%; margin-left: -10px; transition: transform .3s, opacity .3s;
+}
+.lv-burger span { top: 50%; margin-top: -1px; }
+.lv-burger span::before { top: -6px; }
+.lv-burger span::after { top: 6px; }
+.lv-burger.is-open span { background: transparent; }
+.lv-burger.is-open span::before { transform: rotate(45deg); top: 0; }
+.lv-burger.is-open span::after { transform: rotate(-45deg); top: 0; }
+
+.lv-mobile-menu {
+  position: fixed; top: 0; right: 0; bottom: 0; z-index: 89;
+  width: min(340px, 86vw);
+  background: color-mix(in srgb, var(--lv-paper) 84%, transparent);
+  -webkit-backdrop-filter: blur(22px);
+  backdrop-filter: blur(22px);
+  border-left: 1px solid var(--lv-glass-border);
+  box-shadow: -24px 0 60px rgba(6, 20, 12, .22);
+  display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 8px;
+  padding: 108px 36px 40px;
+  opacity: 0; visibility: hidden; transform: translateX(100%);
+  transition: opacity .35s, transform .4s cubic-bezier(.2,.8,.2,1), visibility 0s .4s;
+}
+.lv-mobile-menu.is-open { opacity: 1; visibility: visible; transform: none; transition: opacity .35s, transform .4s cubic-bezier(.2,.8,.2,1); }
+.lv-mobile-menu a {
+  font-family: var(--lv-font-display); font-size: clamp(26px, 7vw, 38px); font-weight: 600;
+  color: var(--lv-ink); text-decoration: none; padding: 6px 0;
+  min-height: 44px; display: inline-flex; align-items: center; line-height: 1.15;
+  opacity: 0; transform: translateY(14px); transition: opacity .4s, transform .4s;
+}
+.lv-mobile-menu.is-open a { opacity: 1; transform: none; }
+.lv-mobile-menu.is-open a:nth-child(1) { transition-delay: .06s; }
+.lv-mobile-menu.is-open a:nth-child(2) { transition-delay: .12s; }
+.lv-mobile-menu.is-open a:nth-child(3) { transition-delay: .18s; }
+.lv-mobile-menu.is-open a:nth-child(4) { transition-delay: .24s; }
+.lv-mobile-menu.is-open a:nth-child(5) { transition-delay: .30s; }
+
+@media (max-width: 900px) {
+  .lv-nav__links { display: none; }
+  .lv-burger { display: grid; }
+  .lv-nav__cta .lv-btn--ghost { display: none; }
+}
+@media (max-width: 560px) {
+  .lv-nav__cta .lv-btn--primary { display: none; }   /* nav CTA lives in the mobile drawer on phones */
+}
+
+/* =====================================================================
+ * 5. HERO
+ * ===================================================================== */
+.lv-hero {
+  position: relative; overflow: hidden;
+  padding: 170px 0 90px;
+  background:
+    radial-gradient(900px 600px at 88% -10%, color-mix(in srgb, var(--lv-green-100) 55%, transparent), transparent 70%),
+    radial-gradient(700px 500px at -12% 110%, color-mix(in srgb, var(--lv-green-50) 80%, transparent), transparent 70%);
+}
+
+/* Legibility scrim — darkens the hero so the light headline stays readable
+   over the gradient (was part of the removed hero-video layer). */
+.hero-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(6, 20, 12, 0.55), rgba(6, 20, 12, 0.22) 46%, rgba(6, 20, 12, 0.40)),
+    linear-gradient(180deg, rgba(6, 20, 12, 0.34) 0%, transparent 22%, transparent 78%, rgba(6, 20, 12, 0.34) 100%);
+}
+
+/* Lift the hero content above the scrim */
+#top > .lv-wrap {
+  position: relative;
+  z-index: 2;
+}
+/* lg:grid-cols-12 → text 7 cols / preview 5 cols (7fr · 5fr keeps the same ratio without gap math) */
+.lv-hero__grid { display: grid; grid-template-columns: 7fr 5fr; gap: clamp(40px, 5vw, 72px); align-items: center; }
+.lv-hero__copy, .lv-hero__visual { min-width: 0; }   /* let the typewriter line wrap inside its 7-col track — never overflows the column */
+
+.lv-hero__eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 8px 16px; border-radius: 999px; border: 1px solid rgba(16, 185, 129, .32);
+  background: color-mix(in srgb, var(--lv-card) 62%, transparent);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  font-size: 13px; font-weight: 700; color: var(--lv-green-700); margin-bottom: 26px;
+  box-shadow: 0 6px 22px rgba(6, 20, 12, .14);
+}
+[data-theme="dark"] .lv-hero__eyebrow { color: var(--lv-green-300); }
+.lv-hero__eyebrow .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--lv-green-500); animation: lv-pulse 1.8s infinite; }
+@keyframes lv-pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+.lv-hero h1 { margin-bottom: 24px; }
+
+.lv-hero__actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 34px; }
+
+/* Statistics — clean grid-cols-3 row, one shared baseline */
+.lv-hero__meta { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: 42px; padding-top: 26px; border-top: 1px solid var(--lv-line-soft); }
+.lv-hero__meta div { display: flex; flex-direction: column; gap: 6px; }
+.lv-hero__meta b { font-family: var(--lv-font-display); font-size: 26px; font-weight: 700; line-height: 1; }
+.lv-hero__meta span { font-size: 12.5px; color: var(--lv-muted); font-weight: 600; }
+
+/* ------------------------------------------------------------------
+   Hero text over the video backdrop.
+   The hero now sits on a darkened screen-recording (video + scrim),
+   so the text is light in BOTH themes — the backdrop reads dark in
+   light and dark mode alike. These scoped overrides beat the theme
+   defaults (e.g. .lv-lead's --lv-ink-soft, which is dark in light mode).
+   ------------------------------------------------------------------ */
+.lv-hero .lv-display,
+.lv-hero h1 { color: #fff; }
+.lv-hero .lv-lead { color: rgba(255,255,255,.86); }
+
+.lv-hero__meta { border-top-color: rgba(255,255,255,.14); }
+.lv-hero__meta b { color: #fff; }
+.lv-hero__meta span { color: rgba(255,255,255,.70); }
+
+/* Accent word — brightened green so it pops on the dark backdrop */
+.lv-hero .lv-em { color: var(--lv-green-400); }
+
+/* Buttons — primary stays solid green; ghost flips to light-on-dark */
+.lv-hero .lv-btn--ghost { color: #fff; border-color: rgba(255,255,255,.6); background: rgba(255,255,255,.06); }
+.lv-hero .lv-btn--ghost:hover { color: #12241a; background: #fff; border-color: #fff; }
+
+/* Hero headline — gentle floating animation (was typewriter cursor) */
+@keyframes hero-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.lv-hero [data-hero-type] { animation: hero-float 5s ease-in-out infinite; }
+
+/* Hero visual — stack of cards over an editorial photo */
+.lv-hero__visual { position: relative; height: 560px; }
+.lv-hero__photo {
+  position: absolute; inset: 0; border-radius: var(--lv-radius-lg); overflow: hidden;
+  box-shadow: var(--lv-shadow-lg); transform: rotate(1.2deg);
+  background: linear-gradient(160deg, var(--lv-green-800), var(--lv-green-950));
+}
+.lv-hero__photo img, .lv-hero__photo svg { width: 100%; height: 100%; object-fit: cover; display: block; }
+.lv-hero__photo::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 40%, rgba(6,20,12,.55));
+}
+.lv-hero__cap {
+  position: absolute; left: 22px; right: 22px; bottom: 22px; z-index: 2;
+  color: #fff; font-size: 14px; font-weight: 600; display: flex; align-items: flex-end; justify-content: space-between; gap: 10px;
+}
+.lv-hero__cap small { font-weight: 500; opacity: .85; max-width: 320px; line-height: 1.5; }
+
+/* Floating mini cards */
+.lv-float {
+  position: absolute; z-index: 3;
+  background: color-mix(in srgb, var(--lv-card) 70%, transparent);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--lv-glass-border);
+  border-radius: var(--lv-radius-md); padding: 14px 18px; box-shadow: var(--lv-shadow-md);
+  display: flex; align-items: center; gap: 12px; animation: lv-bob 5s ease-in-out infinite;
+  translate: 0 var(--pf, 0px);
+}
+.lv-float .f-ico { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; font-size: 19px; flex: 0 0 auto; }
+.lv-float b { display: block; font-size: 14px; line-height: 1.2; }
+.lv-float span { font-size: 12px; color: var(--lv-muted); }
+@keyframes lv-bob { 0%,100%{ transform: translateY(0);} 50%{ transform: translateY(-9px);} }
+.lv-float--a { top: 34px; left: -34px; animation-delay: .4s; }
+.lv-float--a .f-ico { background: var(--lv-citizen-soft); color: var(--lv-citizen); }
+.lv-float--b { bottom: 96px; right: -40px; animation-delay: 1.6s; }
+.lv-float--b .f-ico { background: var(--lv-mint-soft); color: var(--lv-green-600); }
+.lv-float--c { bottom: -26px; left: 30px; animation-delay: 2.8s; }
+.lv-float--c .f-ico { background: var(--lv-employee-soft); color: var(--lv-employee); }
+
+@media (max-width: 1024px) {
+  .lv-hero { padding-top: 140px; }
+  .lv-hero__grid { grid-template-columns: 1fr; gap: 54px; }
+  .lv-hero__visual { height: 480px; max-width: 560px; }
+  .lv-float--a { left: -8px; }
+  .lv-float--b { right: -8px; }
+}
+@media (max-width: 560px) {
+  .lv-hero { padding-top: 120px; padding-bottom: 60px; }
+  .lv-hero__visual { height: 380px; }
+  .lv-float { padding: 10px 12px; }
+  .lv-float--a { top: 16px; left: 8px; }
+  .lv-float--b { bottom: 60px; right: 8px; }
+  .lv-float--c { bottom: -16px; left: 12px; }
+  .lv-hero__meta { grid-template-columns: 1fr; gap: 14px; }
+}
+
+/* =====================================================================
+ * 6. MARQUEE / TRUST STRIP
+ * ===================================================================== */
+.lv-marquee { border-block: 1px solid var(--lv-line-soft); overflow: hidden; padding: 20px 0; background: var(--lv-cream); }
+[data-theme="dark"] .lv-marquee { background: #101a14; }   /* was charcoal-2 (flips light in dark) — latent contrast bug fixed */
+.lv-marquee__track { display: flex; gap: 54px; width: max-content; animation: lv-scroll 30s linear infinite; }
+.lv-marquee__track span {
+  display: inline-flex; align-items: center; gap: 12px; white-space: nowrap;
+  font-weight: 700; font-size: 15px; color: var(--lv-ink-soft);
+}
+.lv-marquee__track .m-ico { font-size: 19px; }
+@keyframes lv-scroll { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .lv-marquee__track { animation: none; flex-wrap: wrap; } }
+
+/* =====================================================================
+ * 7. SECTION HEAD
+ * ===================================================================== */
+.lv-sechead { max-width: 760px; margin-bottom: 56px; }
+.lv-sechead--center { margin-inline: auto; text-align: center; }
+.lv-sechead--center .lv-kicker { justify-content: center; }
+.lv-sechead--center .lv-lead { margin-inline: auto; }
+.lv-sechead--compact { margin-bottom: 30px; }
+.lv-sechead--below { margin: 56px auto 0; }
+.lv-sechead h2 { margin-bottom: 18px; }
+.lv-sechead p { font-size: 17px; line-height: 1.65; color: var(--lv-ink-soft); }
+
+/* =====================================================================
+ * 8. PROBLEM SECTION
+ * ===================================================================== */
+.lv-problem { overflow: hidden; }
+.lv-problem__chain { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; margin-top: 30px; position: relative; }
+.lv-problem__step {
+  padding: 26px 20px; text-align: center; position: relative;
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+}
+.lv-problem__step .p-no { font-family: var(--lv-font-display); font-size: 15px; font-weight: 700; color: var(--lv-muted); opacity: .5; }
+.lv-problem__step .p-ico { width: 54px; height: 54px; border-radius: 50%; display: grid; place-items: center; font-size: 24px; background: var(--lv-card); border: 1px solid var(--lv-line); box-shadow: var(--lv-shadow-sm); }
+.lv-problem__step b { font-size: 14.5px; }
+.lv-problem__step small { font-size: 12.5px; color: var(--lv-muted); max-width: 150px; line-height: 1.45; }
+.lv-problem__step::after {
+  content: "→"; position: absolute; right: -14px; top: 46px; z-index: 2;
+  font-size: 18px; color: var(--lv-muted); opacity: .4;
+}
+.lv-problem__step:last-child::after { display: none; }
+.lv-problem__verdict {
+  margin: 56px auto 0; max-width: 860px; text-align: center;
+  font-family: var(--lv-font-display); font-size: clamp(24px, 3.4vw, 40px); font-weight: 600; line-height: 1.25;
+  padding: 40px 30px; border-radius: var(--lv-radius-lg);
+  background: color-mix(in srgb, var(--lv-green-50) 60%, transparent);
+  border: 1px solid var(--lv-line-soft);
+}
+.lv-problem__verdict em { color: var(--lv-terracotta); font-style: italic; }
+
+@media (max-width: 900px) {
+  .lv-problem__chain { grid-template-columns: 1fr 1fr; }
+  .lv-problem__step::after { display: none; }
+}
+@media (max-width: 520px) {
+  .lv-problem__chain { grid-template-columns: 1fr; }
+  .lv-problem__step { flex-direction: row; text-align: left; justify-content: flex-start; gap: 16px; padding: 14px 8px; }
+  .lv-problem__step small { max-width: none; }
+  .lv-problem__step .p-no { position: absolute; top: 6px; right: 8px; }
+}
+
+/* =====================================================================
+ * 9. SYSTEM PIPELINE
+ * ===================================================================== */
+.lv-pipeline { position: relative; }
+/* grid-cols-6 timeline — centered inside the container; icons, connector and titles share one vertical rhythm */
+.lv-pipeline__rail {
+  position: relative; display: grid; grid-template-columns: repeat(6, 1fr); gap: 0;
+  max-width: 1180px; margin: 30px auto 0;
+}
+.lv-pipeline__step { padding: 20px 14px; text-align: center; position: relative; display: flex; flex-direction: column; align-items: center; }
+.lv-pipeline__step .pv-ico {
+  width: 64px; height: 64px; margin: 0 0 16px; border-radius: 20px;
+  display: grid; place-items: center; font-size: 27px;
+  background: var(--lv-card); border: 1px solid var(--lv-line);
+  box-shadow: var(--lv-shadow-sm); position: relative; z-index: 2;
+  transition: transform .3s, box-shadow .3s, background .3s;
+}
+.lv-pipeline__step:hover .pv-ico { transform: translateY(-5px) scale(1.04); border-color: var(--lv-green-400); box-shadow: 0 10px 26px color-mix(in srgb, var(--lv-green-500) 25%, transparent); }
+.lv-pipeline__step b { display: block; font-size: 14px; line-height: 1.3; margin-bottom: 5px; }
+.lv-pipeline__step small { font-size: 12px; color: var(--lv-muted); line-height: 1.4; display: block; max-width: 150px; }
+/* connecting line drawn between the icons */
+.lv-pipeline__connector {
+  position: absolute; top: 52px; left: 12%; right: 12%; height: 2px; z-index: 1;
+  background: linear-gradient(90deg, var(--lv-line), var(--lv-green-300), var(--lv-line));
+  border-radius: 2px;
+}
+[data-theme="dark"] .lv-pipeline__connector { background: linear-gradient(90deg, var(--lv-line), var(--lv-green-700), var(--lv-line)); }
+
+.lv-pipeline__note {
+  margin-top: 44px; text-align: center; font-size: 14.5px; color: var(--lv-muted);
+  background: color-mix(in srgb, var(--lv-cream) 60%, transparent);
+  border: 1px dashed color-mix(in srgb, var(--lv-green-500) 40%, transparent);
+  border-radius: var(--lv-radius-md); padding: 18px 24px;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+}
+
+@media (max-width: 980px) {
+  .lv-pipeline__rail { grid-template-columns: repeat(3, 1fr); row-gap: 30px; }
+  .lv-pipeline__connector { display: none; }
+}
+@media (max-width: 640px) {   /* mobile → 2×3 grid, connector off */
+  .lv-pipeline__rail { grid-template-columns: repeat(2, 1fr); row-gap: 26px; }
+}
+
+/* =====================================================================
+ * 10. ROLE EXPLORER
+ * ===================================================================== */
+.lv-roles { overflow: hidden; }
+/* grid-cols-1 → md:grid-cols-2; cards are equal-height and their CTA arrows lock to one baseline floor */
+.lv-roles__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; margin-top: 30px; max-width: 920px; margin-inline: auto; }
+
+.lv-role-card {
+  position: relative; border-radius: var(--lv-radius-lg); overflow: hidden;
+  background: var(--lv-card); border: 1px solid var(--lv-line);
+  padding: 34px 30px 30px; text-align: left; cursor: pointer; text-decoration: none; color: inherit;
+  transition: transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s, border-color .3s;
+  display: flex; flex-direction: column; height: 100%; min-height: 360px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.06);   /* inner top highlight — card depth */
+}
+.lv-role-card:hover { transform: translateY(-4px) scale(1.02); border-color: var(--lv-green-400); box-shadow: var(--lv-shadow-lg); }
+.lv-role-card:active { transform: translateY(-2px) scale(.99); }
+.lv-role-card:focus-visible { outline: 3px solid var(--lv-green-500); outline-offset: 3px; }
+.lv-role-card::before {
+  content: ""; position: absolute; inset: 0 0 auto 0; height: 5px;
+}
+.lv-role-card--citizen::before { background: linear-gradient(90deg, var(--lv-citizen), var(--lv-green-500)); }
+.lv-role-card--employee::before { background: linear-gradient(90deg, var(--lv-employee), #9b7bff); }
+
+.lv-role-card__no { font-family: var(--lv-font-display); font-size: 15px; font-weight: 700; opacity: .35; }
+.lv-role-card__ico {
+  width: 64px; height: 64px; border-radius: 20px; display: grid; place-items: center;
+  font-size: 29px; margin: 18px 0 20px; box-shadow: inset 0 0 0 1px var(--lv-line);
+}
+.lv-role-card--citizen .lv-role-card__ico { background: var(--lv-citizen-soft); }
+.lv-role-card--employee .lv-role-card__ico { background: var(--lv-employee-soft); }
+.lv-role-card h3 { font-family: var(--lv-font-display); font-size: 30px; font-weight: 700; margin-bottom: 10px; }
+.lv-role-card p { font-size: 14.5px; line-height: 1.6; color: var(--lv-ink-soft); flex: 1 1 auto; }
+.lv-role-card__cta {
+  margin-top: auto; padding-top: 24px; display: inline-flex; align-items: center; gap: 8px;
+  font-weight: 800; font-size: 14.5px;
+}
+.lv-role-card__cta .lv-arr { transition: transform .25s; }
+.lv-role-card:hover .lv-role-card__cta .lv-arr { transform: translateX(5px); }
+.lv-role-card--citizen .lv-role-card__cta { color: var(--lv-citizen); }
+.lv-role-card--employee .lv-role-card__cta { color: var(--lv-employee); }
+
+.lv-role-card__spark { position: absolute; right: 26px; top: 30px; font-size: 22px; opacity: .9; }
+
+@media (max-width: 768px) {   /* md breakpoint → grid-cols-1 */
+  .lv-roles__grid { grid-template-columns: 1fr; max-width: 520px; margin-inline: auto; }
+  .lv-role-card { min-height: 0; }
+}
+
+/* =====================================================================
+ * 11. ROLE DEEP DIVE
+ * ===================================================================== */
+.lv-dive { position: relative; }
+.lv-dive__head { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; margin-bottom: 60px; }
+.lv-dive__visual { position: relative; border-radius: var(--lv-radius-lg); overflow: hidden; min-height: 400px; box-shadow: var(--lv-shadow-md); background: var(--lv-card); border: 1px solid var(--lv-line); }
+.lv-dive__visual img, .lv-dive__visual svg { width: 100%; height: 100%; object-fit: cover; display: block; }
+.lv-dive__tag {
+  position: absolute; top: 20px; left: 20px; z-index: 2;
+  padding: 8px 15px; border-radius: 999px; font-size: 12.5px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;
+  background: rgba(255,255,255,.9); color: var(--lv-ink); box-shadow: var(--lv-shadow-sm);
+}
+[data-theme="dark"] .lv-dive__tag { background: rgba(18,28,22,.9); color: var(--lv-ink); }
+
+.lv-dive__h2 { margin: 6px 0 18px; }
+
+/* 4-step process cards (restored + improved) */
+.lv-dive__flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.lv-dive__flow-item {
+  position: relative; overflow: hidden;
+  background: var(--lv-card); border: 1px solid var(--lv-line); border-radius: var(--lv-radius-md);
+  padding: 22px 18px 20px; transition: transform .25s, box-shadow .25s, border-color .25s;
+}
+.lv-dive__flow-item::before {
+  content: ""; display: block; width: 32px; height: 5px; border-radius: 3px;
+  background: var(--t, var(--lv-green-500)); margin-bottom: 15px;
+}
+[data-theme="dark"] .lv-dive__flow-item::before { background: var(--t, var(--lv-green-500)); }
+.lv-dive__flow-item:hover { transform: translateY(-4px); box-shadow: var(--lv-shadow-md); border-color: var(--t, var(--lv-green-400)); }
+.lv-dive__flow-item .fi-ico { font-size: 22px; margin-bottom: 12px; display: block; }
+.lv-dive__flow-item b { font-size: 15px; display: block; margin-bottom: 5px; }
+.lv-dive__flow-item small { font-size: 12.5px; color: var(--lv-muted); line-height: 1.5; display: block; }
+.lv-dive__flow-item .fi-no {
+  position: absolute; top: 15px; right: 16px; font-family: var(--lv-font-display);
+  font-size: 13px; font-weight: 700; opacity: .25;
+}
+
+.lv-dive__features { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 34px; }
+.lv-dive__feat {
+  display: flex; gap: 14px; padding: 20px; border-radius: var(--lv-radius-md);
+  background: var(--lv-card); border: 1px solid var(--lv-line); transition: transform .22s, box-shadow .22s;
+}
+.lv-dive__feat:hover { transform: translateY(-3px); box-shadow: var(--lv-shadow-md); }
+.lv-dive__feat .fe-ico { width: 46px; height: 46px; flex: 0 0 auto; border-radius: 14px; display: grid; place-items: center; font-size: 21px; }
+.lv-dive__feat b { font-size: 15px; display: block; margin-bottom: 5px; }
+.lv-dive__feat small { font-size: 13px; color: var(--lv-muted); line-height: 1.5; }
+.lv-dive--citizen .fe-ico { background: var(--lv-citizen-soft); }
+.lv-dive--employee .fe-ico { background: var(--lv-employee-soft); }
+
+.lv-dive__cta { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; margin-top: 38px; }
+.lv-dive__cta--center { justify-content: center; }
+.lv-dive__cta .lv-demo-hint { font-size: 13.5px; color: var(--lv-muted); }
+
+@media (max-width: 900px) {
+  .lv-dive__head { grid-template-columns: 1fr; gap: 34px; }
+  .lv-dive__flow { grid-template-columns: 1fr 1fr; }
+  .lv-dive__features { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+  .lv-dive__flow { grid-template-columns: 1fr; }
+}
+
+/* =====================================================================
+ * 12. AI WORKFLOW
+ * ===================================================================== */
+.lv-ai { overflow: hidden; }
+/* lg:grid-cols-12 → feature list 5 cols / live preview 7 cols (5fr · 7fr keeps the same ratio) */
+.lv-ai__grid { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(40px, 5vw, 72px); align-items: center; }
+.lv-ai__grid > * { min-width: 0; }
+.lv-ai__steps { display: flex; flex-direction: column; gap: 0; margin-top: 30px; counter-reset: ai; }
+.lv-ai__step {
+  position: relative; display: flex; gap: 20px; padding: 0 0 30px;
+}
+.lv-ai__step:last-child { padding-bottom: 0; }
+.lv-ai__step .ai-num {
+  flex: 0 0 auto; width: 46px; height: 46px; border-radius: 50%;
+  background: var(--lv-card); border: 1px solid var(--lv-line);
+  display: grid; place-items: center; font-family: var(--lv-font-display); font-weight: 700; font-size: 16px;
+  box-shadow: var(--lv-shadow-sm); position: relative; z-index: 2;
+}
+.lv-ai__step:not(:last-child)::before {
+  content: ""; position: absolute; left: 23px; top: 46px; bottom: 0; width: 2px;
+  background: var(--lv-line);
+}
+.lv-ai__step.is-live .ai-num { background: var(--lv-green-700); color: #fff; border-color: var(--lv-green-500); box-shadow: 0 0 0 4px color-mix(in srgb, var(--lv-green-500) 18%, transparent); }
+.lv-ai__step b { font-size: 16px; display: block; margin-bottom: 5px; }
+.lv-ai__step small { font-size: 13.5px; color: var(--lv-muted); line-height: 1.55; display: block; }
+.lv-ai__step .ai-chip {
+  display: inline-flex; align-items: center; gap: 7px; margin-top: 9px;
+  font-size: 12px; font-weight: 700; padding: 5px 11px; border-radius: 999px;
+  background: var(--lv-green-50); color: var(--lv-green-700); border: 1px solid color-mix(in srgb, var(--lv-green-600) 25%, transparent);
+}
+[data-theme="dark"] .lv-ai__step .ai-chip { color: var(--lv-green-300); }
+
+.lv-ai__panel {
+  position: relative; border-radius: var(--lv-radius-lg); padding: 34px;
+  background: color-mix(in srgb, var(--lv-card) 74%, transparent);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+  border: 1px solid var(--lv-glass-border); box-shadow: var(--lv-shadow-lg), inset 0 1px 0 rgba(255,255,255,.06);
+}
+.lv-ai__panel::before {
+  content: ""; position: absolute; inset: -1px; border-radius: inherit; padding: 1px;
+  background: conic-gradient(from 180deg, var(--lv-green-600), transparent 25%, var(--lv-green-500) 50%, transparent 75%, var(--lv-green-600));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  opacity: .5; pointer-events: none;
+}
+.lv-ai__score { text-align: center; margin: 8px 0 26px; }
+.lv-ai__score .big { font-family: var(--lv-font-display); font-size: 74px; font-weight: 700; line-height: 1; color: var(--lv-green-600); }
+[data-theme="dark"] .lv-ai__score .big { color: var(--lv-green-400); }
+.lv-ai__score .lbl { font-size: 13px; color: var(--lv-muted); font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-top: 8px; }
+.lv-ai__bars { display: flex; flex-direction: column; gap: 16px; }
+.lv-ai__bar .bar-lbl { display: flex; justify-content: space-between; font-size: 13px; font-weight: 700; margin-bottom: 7px; }
+.lv-ai__bar .bar-track { height: 9px; border-radius: 999px; background: var(--lv-line); overflow: hidden; }
+.lv-ai__bar .bar-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--lv-green-600), var(--lv-green-400)); box-shadow: 0 0 12px color-mix(in srgb, var(--lv-green-500) 45%, transparent); transform-origin: left; transform: scaleX(0); transition: transform 1.2s cubic-bezier(.16,1,.3,1); }
+.lv-ai__bar.in .bar-fill { transform: scaleX(1); }
+.lv-ai__match { margin-top: 24px; display: flex; align-items: center; gap: 12px; padding: 16px 18px; border-radius: var(--lv-radius-md); background: var(--lv-green-50); border: 1px solid var(--lv-glass-border); }
+[data-theme="dark"] .lv-ai__match { background: #10281a; }
+.lv-ai__match .av { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; font-size: 19px; background: var(--lv-card); }
+.lv-ai__match b { font-size: 14px; display: block; }
+.lv-ai__match small { font-size: 12.5px; color: var(--lv-muted); }
+.lv-ai__match .lv-ai__queue { margin-left: auto; }
+
+.lv-ai__panel-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+.lv-ai__panel-head b { font-size: 13px; font-weight: 800; letter-spacing: .02em; }
+.lv-ai__panel-head .live { display: flex; align-items: center; gap: 7px; font-size: 11.5px; font-weight: 700; color: var(--lv-green-600); }
+.lv-ai__panel-head .live i {
+  width: 7px; height: 7px; border-radius: 50%; background: currentColor;
+  box-shadow: 0 0 0 3px rgba(42,163,92,.22); animation: lv-pulse 1.6s infinite;
+}
+.lv-ai__sub { font-size: 13px; color: var(--lv-muted); margin-top: 4px; }
+.lv-ai__queue {
+  display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
+  padding: 7px 12px; border-radius: 999px; background: var(--lv-card);
+  border: 1px solid var(--lv-line); font-size: 11.5px; font-weight: 700; color: var(--lv-admin);
+}
+
+@media (max-width: 1024px) {   /* lg breakpoint → single column */
+  .lv-ai__grid { grid-template-columns: 1fr; gap: 40px; }
+}
+
+/* =====================================================================
+ * 13. IMPACT / STATS
+ * ===================================================================== */
+.lv-impact { overflow: hidden; }
+.lv-impact__band {
+  border-radius: var(--lv-radius-lg); overflow: hidden; position: relative;
+  background: linear-gradient(150deg, var(--lv-charcoal-2), var(--lv-charcoal));
+  padding: 70px 50px;
+}
+[data-theme="dark"] .lv-impact__band { background: linear-gradient(150deg, #0e1a14, #0b120f); }
+.lv-impact__band::before {
+  content: ""; position: absolute; width: 420px; height: 420px; border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--lv-green-500) 32%, transparent), transparent 70%);
+  top: -140px; right: -80px;
+}
+.lv-impact__band::after {
+  content: ""; position: absolute; width: 300px; height: 300px; border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--lv-saffron) 14%, transparent), transparent 70%);
+  bottom: -120px; left: -60px;
+}
+/* 4-step impact strip — grid-cols-2 → lg:grid-cols-4 */
+.lv-impact__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(24px, 4vw, 40px); position: relative; z-index: 2; }
+@media (min-width: 1024px) { .lv-impact__grid { grid-template-columns: repeat(4, 1fr); } }
+.lv-impact__stat { color: #fff; }
+.lv-impact__stat .is-no { font-family: var(--lv-font-display); font-size: clamp(40px, 5vw, 60px); font-weight: 700; line-height: 1; }
+.lv-impact__stat .is-step { font-size: 12px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; opacity: .65; display: block; margin: 12px 0 8px; }
+.lv-impact__stat p { font-size: 14px; line-height: 1.5; opacity: .85; max-width: 220px; }
+/* hairline separators only on the 4-col desktop layout — clean gaps on the 2-col layout */
+.lv-impact__stat + .lv-impact__stat { border-left: none; padding-left: 0; }
+@media (min-width: 1024px) { .lv-impact__stat + .lv-impact__stat { border-left: 1px solid rgba(255,255,255,.14); padding-left: 26px; } }
+[data-theme="dark"] .lv-impact__band .lv-impact__stat { color: #e8f2ec; }
+
+@media (max-width: 1024px) { .lv-impact__band { padding: 48px 28px; } }
+@media (max-width: 480px) { .lv-impact__band { padding: 44px 22px; } }
+
+/* =====================================================================
+ * 14. TESTIMONIAL / REAL-WORLD IMPACT
+ * ===================================================================== */
+.lv-quotes { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; max-width: 960px; margin-inline: auto; }
+.lv-quote {
+  background: color-mix(in srgb, var(--lv-card) 84%, transparent);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(16, 185, 129, .15);
+  border-radius: 22px;
+  padding: 30px 30px 26px;
+  display: flex; flex-direction: column; gap: 18px;
+  box-shadow: 0 14px 34px rgba(11, 18, 15, .08), inset 0 1px 0 rgba(255, 255, 255, .06);
+  transition: transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s, border-color .25s;
+}
+.lv-quote:hover {
+  transform: translateY(-5px);
+  border-color: rgba(16, 185, 129, .38);
+  box-shadow: 0 26px 52px rgba(16, 185, 129, .18), inset 0 1px 0 rgba(255, 255, 255, .06);
+}
+.lv-quote blockquote { font-size: 15.5px; line-height: 1.65; color: var(--lv-ink); font-weight: 500; flex: 1 1 auto; }
+.lv-quote blockquote::before { content: "“"; font-family: var(--lv-font-display); font-size: 40px; color: var(--lv-green-500); line-height: 0; vertical-align: -14px; margin-right: 5px; }
+.lv-quote footer { display: flex; align-items: center; gap: 14px; margin-top: auto; }
+.lv-quote .q-av {
+  width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center;
+  font-weight: 800; color: #fff; font-size: 16px; flex: 0 0 auto;
+  box-shadow: 0 6px 14px rgba(11, 18, 15, .16);
+  transition: transform .25s;
+}
+.lv-quote:hover .q-av { transform: scale(1.1); }
+.lv-quote b { font-size: 14.5px; display: block; color: var(--lv-ink); }
+.lv-quote small { font-size: 12.5px; color: var(--lv-muted); }
+@media (max-width: 720px) {
+  .lv-quotes { grid-template-columns: 1fr; max-width: 520px; margin-inline: auto; }
+}
+
+/* =====================================================================
+ * 15. CTA
+ * ===================================================================== */
+.lv-cta { position: relative; overflow: hidden; text-align: center; }
+.lv-cta__inner {
+  position: relative; z-index: 2; max-width: 780px; margin: 0 auto;
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+}
+.lv-cta h2 { margin-bottom: 14px; }
+.lv-cta .lv-lead { margin-bottom: 16px; }
+.lv-cta__actions { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; margin-top: 12px; }
+.lv-cta__hint { font-size: 13.5px; color: var(--lv-muted); text-align: center; margin-top: 26px; }
+.lv-cta__orbs { position: absolute; inset: 0; pointer-events: none; }
+.lv-cta__orbs i { position: absolute; border-radius: 50%; filter: blur(70px); opacity: .6; }
+.lv-cta__orbs i:nth-child(1) { width: 440px; height: 440px; background: color-mix(in srgb, var(--lv-green-500) 45%, transparent); top: -140px; left: -90px; }
+.lv-cta__orbs i:nth-child(2) { width: 320px; height: 320px; background: color-mix(in srgb, var(--lv-saffron) 28%, transparent); bottom: -100px; right: -60px; }
+.lv-cta__orbs i:nth-child(3) { width: 240px; height: 240px; background: color-mix(in srgb, var(--lv-sky) 22%, transparent); top: 40%; left: 55%; }
+
+/* =====================================================================
+ * 16. FOOTER
+ * ===================================================================== */
+.lv-footer { border-top: 1px solid var(--lv-line-soft); background: var(--lv-charcoal); color: #eef4f0; padding: 60px 0 34px; position: relative; overflow: hidden; }
+[data-theme="dark"] .lv-footer { background: #0b120f; }
+.lv-footer__grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.4fr; gap: clamp(24px, 4vw, 40px); }
+.lv-footer__grid > div { min-width: 0; }
+.lv-footer h4 { font-size: 14px; font-weight: 800; letter-spacing: .5px; margin-bottom: 18px; color: #fff; }
+.lv-footer a { display: block; color: rgba(240,247,243,.72); text-decoration: none; font-size: 14px; margin-bottom: 11px; transition: color .18s, transform .18s; }
+.lv-footer a:hover { color: #fff; transform: translateX(3px); }
+.lv-footer__brand p { color: rgba(240,247,243,.62); font-size: 14px; line-height: 1.65; max-width: 320px; margin-top: 14px; }
+.lv-footer__bottom {
+  margin-top: 46px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,.12);
+  display: flex; align-items: baseline; justify-content: space-between; gap: 14px; flex-wrap: wrap;
+  font-size: 13px; color: rgba(240,247,243,.5);
+}
+.lv-footer__badges { display: flex; gap: 8px; flex-wrap: wrap; }
+.lv-footer__badges span {
+  padding: 6px 12px; border-radius: 999px; font-size: 12px; font-weight: 700;
+  background: rgba(255,255,255,.08); color: rgba(240,247,243,.85);
+}
+@media (max-width: 900px) {
+  .lv-footer__grid { grid-template-columns: 1fr 1fr; gap: 34px; }
+}
+@media (max-width: 520px) {
+  .lv-footer__grid { grid-template-columns: 1fr; }
+  .lv-footer__bottom { flex-direction: column; align-items: flex-start; }
+}
+
+/* =====================================================================
+ * 17. AUTH PAGE (nested role experience)
+ * ===================================================================== */
+.auth-page { min-height: 100vh; display: flex; flex-direction: column; }
+.auth-page .lv-nav { position: sticky; }
+
+.lv-auth { flex: 1; display: flex; align-items: flex-start; justify-content: center; padding: 40px 24px 90px; position: relative; }
+.lv-auth__wrap { width: 100%; max-width: 1060px; }
+
+.lv-auth__head { text-align: center; max-width: 640px; margin: 0 auto 44px; }
+.lv-auth__head h1 { margin: 4px 0 16px; }
+.lv-auth__head .lv-kicker { justify-content: center; width: 100%; }
+.lv-auth__head .lv-lead { margin-inline: auto; }
+
+/* Role selector — two sharp black/white buttons */
+.lv-auth__selector { display: flex; gap: 12px; margin-bottom: 40px; }
+.lv-auth__role {
+  flex: 1; display: flex; align-items: center; justify-content: center; gap: 12px;
+  padding: 18px 16px; border-radius: 0; background: #fff; color: #0b0f0d;
+  border: 1.5px solid #0b0f0d; cursor: pointer;
+  transition: background .2s ease, color .2s ease, box-shadow .2s ease; text-align: center; font: inherit;
+}
+.lv-auth__role:hover { background: #f4f5f2; }
+.lv-auth__role:focus-visible { outline: 2px solid var(--lv-green-600); outline-offset: 2px; }
+.lv-auth__role b { display: block; font-size: 16px; letter-spacing: .2px; }
+.lv-auth__role small { display: block; font-size: 12.5px; color: #0b0f0d; opacity: .55; }
+.lv-auth__role.is-active { background: #0b0f0d; color: #fff; border-color: #0b0f0d; box-shadow: 0 10px 24px rgba(11,15,13,.18); }
+.lv-auth__role.is-active:hover { background: #1a1f1c; }
+.lv-auth__role.is-active small { color: #fff; opacity: .65; }
+
+/* Deep-dive + auth card */
+.lv-auth__panel {
+  display: grid; grid-template-columns: 1.05fr .95fr; gap: 0;
+  border-radius: 0; overflow: hidden;
+  background: var(--lv-card); border: 1px solid var(--lv-line); box-shadow: var(--lv-shadow-lg);
+  min-height: 560px;
+  animation: lv-panel-in .5s cubic-bezier(.16,1,.3,1) both;
+}
+@keyframes lv-panel-in { from { opacity: 0; transform: translateY(24px) scale(.985); } to { opacity: 1; transform: none; } }
+
+.lv-auth__side { padding: 46px 42px; color: #fff; position: relative; overflow: hidden; display: flex; flex-direction: column; }
+.lv-auth__side--citizen { background: linear-gradient(150deg, var(--lv-green-800), var(--lv-green-950)); }
+.lv-auth__side--employee { background: linear-gradient(150deg, #6b4ef0, #3d2f9e); }
+.lv-auth__side::before {
+  content: ""; position: absolute; width: 320px; height: 320px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,.14), transparent 70%); top: -90px; right: -90px;
+}
+.lv-auth__side .side-role { font-size: 12px; font-weight: 800; letter-spacing: 2.2px; text-transform: uppercase; opacity: .8; }
+.lv-auth__side h2 { font-family: var(--lv-font-display); font-size: clamp(28px, 3vw, 38px); font-weight: 700; line-height: 1.1; margin: 10px 0 14px; color: #fff; }
+.lv-auth__side p { font-size: 15px; line-height: 1.65; opacity: .92; max-width: 380px; }
+.lv-auth__side .side-list { list-style: none; margin-top: 26px; display: flex; flex-direction: column; gap: 13px; position: relative; z-index: 2; }
+.lv-auth__side .side-list li { display: flex; align-items: flex-start; gap: 11px; font-size: 14px; line-height: 1.5; opacity: .96; }
+.lv-auth__side .side-list li span { width: 22px; height: 22px; flex: 0 0 auto; border-radius: 50%; background: rgba(255,255,255,.16); display: grid; place-items: center; font-size: 12px; margin-top: 1px; }
+.lv-auth__side .side-meta { margin-top: auto; padding-top: 26px; font-size: 12.5px; opacity: .75; position: relative; z-index: 2; }
+
+.lv-auth__form { padding: 46px 42px; display: flex; flex-direction: column; }
+.lv-auth__form h3 { font-family: var(--lv-font-display); font-size: 25px; font-weight: 700; margin-bottom: 6px; }
+.lv-auth__form > p { font-size: 14px; color: var(--lv-muted); margin-bottom: 24px; }
+
+.lv-seg {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 5px;
+  background: var(--lv-cream); border: 1px solid var(--lv-line); border-radius: 14px; padding: 5px; margin-bottom: 22px;
+}
+.lv-seg button {
+  padding: 11px; border: none; border-radius: 10px; background: transparent;
+  font: inherit; font-weight: 700; font-size: 14px; color: var(--lv-muted); cursor: pointer; transition: all .2s;
+}
+.lv-seg button.is-active { background: var(--lv-card); color: var(--lv-ink); box-shadow: 0 4px 14px rgba(0,0,0,.1); }
+
+.lv-field { display: flex; flex-direction: column; gap: 7px; margin-bottom: 16px; }
+.lv-field label { font-size: 13px; font-weight: 700; }
+.lv-field input {
+  font: inherit; font-size: 15px; padding: 14px 16px; border: 1px solid var(--lv-line); border-radius: 13px;
+  background: var(--lv-cream); color: var(--lv-ink); outline: none; width: 100%;
+  transition: border-color .18s, box-shadow .18s, background .18s;
+}
+.lv-field input:focus { border-color: var(--lv-green-600); box-shadow: 0 0 0 4px color-mix(in srgb, var(--lv-green-600) 16%, transparent); background: var(--lv-card); }
+.lv-field input::placeholder { color: var(--lv-muted); opacity: .75; }
+
+.lv-auth__switch { font-size: 13.5px; color: var(--lv-muted); margin-top: 18px; text-align: center; }
+.lv-auth__switch a { color: var(--lv-green-700); font-weight: 800; text-decoration: none; }
+.lv-auth__switch a:hover { text-decoration: underline; }
+[data-theme="dark"] .lv-auth__switch a { color: var(--lv-green-400); }
+.lv-auth__err { font-size: 13px; color: var(--lv-red, #dc2626); min-height: 20px; margin-bottom: 10px; display: none; }
+.lv-auth__err.show { display: block; animation: lv-shake .3s; }
+/* Per-field inline error (e.g. password confirmation) — shown/hidden via [hidden] */
+.lv-field-err { display: block; font-size: 12.5px; font-weight: 600; color: var(--lv-red, #dc2626); margin-top: 6px; line-height: 1.4; }
+@keyframes lv-shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-5px)} 75%{transform:translateX(5px)} }
+
+.lv-auth__submit {
+  width: 100%; padding: 16px; border: none; border-radius: 14px; cursor: pointer;
+  font: inherit; font-weight: 800; font-size: 15.5px; color: #fff;
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  transition: transform .18s, box-shadow .18s, opacity .18s; position: relative; overflow: hidden;
+}
+.lv-auth__submit::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.3), transparent);
+  transform: translateX(-100%); transition: transform .5s;
+}
+.lv-auth__submit:hover { transform: translateY(-2px); }
+.lv-auth__submit:hover::after { transform: translateX(100%); }
+.lv-auth__submit:disabled { opacity: .6; cursor: wait; transform: none; }
+.lv-auth__submit--citizen { background: linear-gradient(120deg, var(--lv-citizen), var(--lv-green-700)); box-shadow: 0 10px 24px color-mix(in srgb, var(--lv-citizen) 35%, transparent); }
+.lv-auth__submit--employee { background: linear-gradient(120deg, var(--lv-employee), #6b4ef0); box-shadow: 0 10px 24px color-mix(in srgb, var(--lv-employee) 35%, transparent); }
+.lv-spinner { width: 16px; height: 16px; border-radius: 50%; border: 2.5px solid rgba(255,255,255,.35); border-top-color: #fff; animation: lv-spin .7s linear infinite; display: none; }
+.lv-auth__submit.loading .lv-spinner { display: inline-block; }
+@keyframes lv-spin { to { transform: rotate(360deg); } }
+
+.lv-auth__demo { margin-top: 20px; padding-top: 18px; border-top: 1px dashed var(--lv-line); }
+.lv-auth__demo > span { font-size: 12px; font-weight: 700; color: var(--lv-muted); }
+.lv-demo-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+.lv-demo-chip {
+  font-size: 12px; font-weight: 700; padding: 7px 13px; border-radius: 999px; cursor: pointer;
+  border: 1px solid var(--lv-line); background: var(--lv-cream); color: var(--lv-ink-soft);
+  transition: all .18s;
+}
+.lv-demo-chip:hover { border-color: var(--lv-green-600); color: var(--lv-green-700); background: var(--lv-green-50); transform: translateY(-1px); }
+
+.lv-auth__back { display: inline-flex; align-items: center; gap: 7px; font-size: 14px; font-weight: 700; color: var(--lv-muted); text-decoration: none; margin-bottom: 20px; }
+.lv-auth__back:hover { color: var(--lv-green-700); }
+
+@media (max-width: 900px) {
+  .lv-auth__selector { flex-direction: column; }
+  .lv-auth__panel { grid-template-columns: 1fr; }
+  .lv-auth__side { padding: 36px 30px; }
+  .lv-auth__side .side-meta { margin-top: 22px; }
+  .lv-auth__form { padding: 34px 30px 40px; }
+}
+
+/* =====================================================================
+ * 18. SCROLL ANIMATION PRIMITIVES
+ * ===================================================================== */
+/* Smooth in-page anchor scrolling (reduced-motion sets `auto` in section 19) */
+html { scroll-behavior: smooth; }
+
+/* Entrance — fade-in + 20px slide-up, staggered via inline --d (Phase 4) */
+.lv-reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s cubic-bezier(.16,1,.3,1) var(--d, 0s), transform .6s cubic-bezier(.16,1,.3,1) var(--d, 0s); }
+.lv-reveal.in { opacity: 1; transform: none; }
+.lv-reveal--left { transform: translateX(-24px); }
+.lv-reveal--right { transform: translateX(24px); }
+.lv-reveal--scale { transform: scale(.96); }
+.lv-reveal.in.lv-reveal--left, .lv-reveal.in.lv-reveal--right, .lv-reveal.in.lv-reveal--scale { transform: none; }
+
+/* Staggered reveal via inline --d delay (set in markup) */
+.lv-stagger > * { opacity: 0; transform: translateY(20px); transition: opacity .6s cubic-bezier(.16,1,.3,1) var(--d, 0s), transform .6s cubic-bezier(.16,1,.3,1) var(--d, 0s); }
+.lv-stagger.in > * { opacity: 1; transform: none; }
+
+/* Split-line reveal for the display headline (uses spans) */
+.lv-words { display: inline-block; overflow: hidden; vertical-align: bottom; padding-bottom: .16em; margin-bottom: -.16em; }
+.lv-words span { display: inline-block; transform: translateY(110%); transition: transform .85s cubic-bezier(.16,1,.3,1); }
+[data-words].in .lv-words span, .lv-words.in span { transform: translateY(0); }
+[data-words].in .lv-words:nth-child(2) span { transition-delay: .05s; }
+[data-words].in .lv-words:nth-child(3) span { transition-delay: .1s; }
+[data-words].in .lv-words:nth-child(4) span { transition-delay: .15s; }
+[data-words].in .lv-words:nth-child(5) span { transition-delay: .2s; }
+[data-words].in .lv-words:nth-child(6) span { transition-delay: .25s; }
+[data-words].in .lv-words span { transition-delay: .3s; }
+
+/* Image clip reveal */
+.lv-imgwrap { overflow: hidden; border-radius: inherit; }
+.lv-imgwrap img, .lv-imgwrap svg { transform: scale(1.12); transition: transform 1.3s cubic-bezier(.16,1,.3,1); }
+.lv-imgwrap.in img, .lv-imgwrap.in svg { transform: scale(1); }
+
+/* (Subtle parallax is handled in landing.js for the hero floats.) */
+
+/* =====================================================================
+ * 19. REDUCED MOTION & FOCUS
+ * ===================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .lv-reveal, .lv-reveal--left, .lv-reveal--right, .lv-reveal--scale,
+  .lv-stagger > *, .lv-words span, .lv-imgwrap img, .lv-imgwrap svg,
+  .lv-hero__photo, .lv-float { opacity: 1 !important; transform: none !important; transition: none !important; animation: none !important; }
+  .lv-marquee__track { animation: none; }
+  .lv-ai__bar .bar-fill { transform: scaleX(1); transition: none; }
+  .lv-btn, .lv-btn--primary::after, .lv-btn .lv-arr, .lv-role-card__cta .lv-arr, .lv-nav, .lv-auth__panel, .lv-mobile-menu, .lv-mobile-menu a, .landing-page::after { transition: none; }
+  .lv-quote .q-av { transform: none !important; transition: none !important; }
+  .lv-hero [data-hero-type] { animation: none; }
+  html { scroll-behavior: auto; }
+}
+
+:focus-visible { outline: 3px solid var(--lv-green-500); outline-offset: 2px; }
+
+/* Ensure [hidden] always wins over author display rules (e.g. grid panels). */
+[hidden] { display: none !important; }

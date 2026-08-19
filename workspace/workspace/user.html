@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Citizen Dashboard — SwachLens</title>
+<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="css/app.css" />
+<link rel="stylesheet" href="css/gis.css" />
+<link rel="stylesheet" href="css/i18n.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body class="app-page">
+<header class="app-header">
+  <div class="app-nav">
+    <a href="user.html" class="logo">
+      <span class="logo-badge">♻️</span><span>SwachLens</span>
+    </a>
+    <div class="nav-user">
+      <div class="nu-wrap" style="text-align:right;">
+        <div class="nu-name" id="uName">Citizen</div>
+        <div class="nu-role" id="uRole">👤 Citizen</div>
+      </div>
+      <div class="mini-avatar" id="uAvatar" style="background:linear-gradient(135deg,#10b981,#047857);">👤</div>
+      <span data-lang-switch></span>
+      <button class="icon-btn" data-theme-btn title="Toggle dark mode">🌙</button>
+      <button class="icon-btn" onclick="Auth.switchRole()" title="Logout / switch role">⏻</button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="app-hero">
+  <div class="wrap">
+    <span class="eyebrow"><span class="dot"></span> <span data-i18n="dash.kicker">Citizen Dashboard</span></span>
+    <h1><span data-i18n="dash.hello">Hello,</span> <span class="grad" id="greetName">Citizen</span> 👋</h1>
+    <p data-i18n="dash.sub">Spotted overflowing bins or illegal dumping? Report it in seconds — or book a pickup for bulky waste. Track it live until the crew clears and verifies it.</p>
+    <div class="hero-actions">
+      <button class="btn btn-primary" onclick="openSheet('reportSheet')" data-i18n="dash.reportBtn">📢 Report Waste</button>
+      <a class="btn btn-outline" href="#myReports" data-i18n="dash.myReportsBtn">📋 My Reports</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BANNER -->
+<div class="wrap">
+  <div class="stats-banner">
+    <div class="stat-card reveal in">
+      <div class="sc-ico c-green">✅</div>
+      <div>
+        <div class="sc-num" id="statResolved">0</div>
+        <div class="sc-lbl" data-i18n="dash.statResolved">Issues Resolved</div>
+      </div>
+    </div>
+    <div class="stat-card reveal in">
+      <div class="sc-ico c-amber">🚨</div>
+      <div>
+        <div class="sc-num" id="statActive">0</div>
+        <div class="sc-lbl" data-i18n="dash.statActive">Active Reports</div>
+      </div>
+    </div>
+    <div class="stat-card reveal in">
+      <div class="sc-ico c-blue">⏱️</div>
+      <div>
+        <div class="sc-num" id="statOnTime">100%</div>
+        <div class="sc-lbl" data-i18n="dash.statOnTime">% On-Time Collection</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LIVE GIS & HAND-OFF -->
+<section class="app-section" id="gis">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <span class="kicker" data-i18n="dash.gisKicker">Live GIS</span>
+        <h2 data-i18n="dash.gisTitle">Live map & on-the-way hand-off</h2>
+        <p data-i18n="dash.gisSub">See bin fill levels, track the truck coming your way, and hand over waste without waiting for a scheduled pickup.</p>
+      </div>
+    </div>
+    <div class="gis-shell reveal">
+      <div class="gis-eta">
+        <span class="gis-eta__live"><i></i> <span data-i18n="dash.gisLive">Live</span></span>
+        <span><span data-i18n="dash.gisEtaPre">🚛 Truck TN-07-KH 8214 · Ward 4 — arriving near your street in</span> <b data-eta-count>00:50</b></span>
+      </div>
+      <div class="gis-map" data-map>
+        <svg viewBox="0 0 840 520" role="img" aria-label="Live vector map of Ward 4 showing dustbin fill levels and a garbage truck route">
+          <rect class="gis-map__bg" width="840" height="520" rx="20"/>
+          <ellipse class="gis-water" cx="750" cy="474" rx="88" ry="42"/>
+          <rect class="gis-park" x="646" y="46" width="148" height="68" rx="16"/>
+          <rect class="gis-park" x="52" y="329" width="116" height="80" rx="16"/>
+          <g class="gis-blocks">
+            <rect class="gis-block" x="50" y="50" width="60" height="60" rx="8"/>
+            <rect class="gis-block" x="118" y="54" width="56" height="52" rx="8"/>
+            <rect class="gis-block" x="190" y="50" width="70" height="60" rx="8"/>
+            <rect class="gis-block" x="268" y="54" width="46" height="50" rx="8"/>
+            <rect class="gis-block" x="330" y="50" width="60" height="60" rx="8"/>
+            <rect class="gis-block" x="398" y="54" width="52" height="52" rx="8"/>
+            <rect class="gis-block" x="470" y="50" width="64" height="60" rx="8"/>
+            <rect class="gis-block" x="542" y="54" width="56" height="50" rx="8"/>
+            <rect class="gis-block" x="50" y="130" width="70" height="80" rx="10"/>
+            <rect class="gis-block" x="130" y="134" width="42" height="72" rx="9"/>
+            <rect class="gis-block" x="190" y="130" width="56" height="80" rx="10"/>
+            <rect class="gis-block" x="256" y="136" width="56" height="70" rx="9"/>
+            <rect class="gis-block" x="330" y="130" width="60" height="80" rx="10"/>
+            <rect class="gis-block" x="400" y="136" width="52" height="70" rx="9"/>
+            <rect class="gis-block" x="470" y="130" width="70" height="80" rx="10"/>
+            <rect class="gis-block" x="550" y="134" width="48" height="72" rx="9"/>
+            <rect class="gis-block" x="50" y="230" width="56" height="80" rx="10"/>
+            <rect class="gis-block" x="116" y="234" width="56" height="72" rx="9"/>
+            <rect class="gis-block" x="190" y="230" width="70" height="80" rx="10"/>
+            <rect class="gis-block" x="270" y="236" width="42" height="70" rx="9"/>
+            <rect class="gis-block" x="330" y="230" width="60" height="80" rx="10"/>
+            <rect class="gis-block" x="400" y="236" width="52" height="70" rx="9"/>
+            <rect class="gis-block" x="470" y="230" width="70" height="80" rx="10"/>
+            <rect class="gis-block" x="550" y="234" width="48" height="72" rx="9"/>
+            <rect class="gis-block" x="190" y="336" width="64" height="72" rx="9"/>
+            <rect class="gis-block" x="330" y="336" width="60" height="72" rx="9"/>
+            <rect class="gis-block" x="400" y="340" width="52" height="66" rx="9"/>
+            <rect class="gis-block" x="470" y="330" width="70" height="80" rx="10"/>
+            <rect class="gis-block" x="550" y="334" width="48" height="72" rx="9"/>
+            <rect class="gis-block" x="50" y="430" width="60" height="60" rx="8"/>
+            <rect class="gis-block" x="118" y="434" width="54" height="52" rx="8"/>
+            <rect class="gis-block" x="190" y="430" width="66" height="60" rx="8"/>
+            <rect class="gis-block" x="264" y="434" width="48" height="52" rx="8"/>
+            <rect class="gis-block" x="330" y="430" width="60" height="60" rx="8"/>
+            <rect class="gis-block" x="398" y="434" width="54" height="52" rx="8"/>
+            <rect class="gis-block" x="470" y="430" width="70" height="60" rx="8"/>
+            <rect class="gis-block" x="550" y="434" width="48" height="52" rx="8"/>
+          </g>
+          <g class="gis-road-casing" stroke-linecap="round" stroke-linejoin="round">
+            <line class="art" x1="0" y1="120" x2="840" y2="120"/>
+            <line class="art" x1="0" y1="220" x2="840" y2="220"/>
+            <line class="art" x1="0" y1="320" x2="840" y2="320"/>
+            <line class="art" x1="0" y1="420" x2="840" y2="420"/>
+            <line class="art" x1="180" y1="0" x2="180" y2="520"/>
+            <line class="art" x1="320" y1="0" x2="320" y2="520"/>
+            <line class="art" x1="460" y1="0" x2="460" y2="520"/>
+            <line class="art" x1="620" y1="0" x2="620" y2="520"/>
+            <line class="loc" x1="620" y1="300" x2="840" y2="300"/>
+          </g>
+          <g class="gis-road-fill" stroke-linecap="round" stroke-linejoin="round">
+            <line class="art" x1="0" y1="120" x2="840" y2="120"/>
+            <line class="art" x1="0" y1="220" x2="840" y2="220"/>
+            <line class="art" x1="0" y1="320" x2="840" y2="320"/>
+            <line class="art" x1="0" y1="420" x2="840" y2="420"/>
+            <line class="art" x1="180" y1="0" x2="180" y2="520"/>
+            <line class="art" x1="320" y1="0" x2="320" y2="520"/>
+            <line class="art" x1="460" y1="0" x2="460" y2="520"/>
+            <line class="art" x1="620" y1="0" x2="620" y2="520"/>
+            <line class="loc" x1="620" y1="300" x2="840" y2="300"/>
+          </g>
+          <path class="gis-route-todo" d="M60 320 L180 320 L180 420 L320 420 L320 220 L460 220 L460 120 L620 120 L620 300 L760 300"/>
+          <path class="gis-route-done" data-route-done d="M60 320 L180 320 L180 420 L320 420 L320 220 L460 220 L460 120 L620 120 L620 300 L760 300" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+
+        <div class="gis-bins" data-bins></div>
+
+        <div class="citizen-pin" data-citizen-pin style="left:59.52%;top:45.77%;">
+          <i></i><span data-i18n="dash.you">You</span>
+        </div>
+
+        <div class="truck-marker" data-truck>
+          <span class="truck-ico" aria-hidden="true">🚛</span>
+          <span class="truck-lbl" data-truck-label></span>
+        </div>
+
+        <button class="gis-cta" data-handoff-btn type="button">
+          <span class="gcta-emoji" aria-hidden="true">✋</span>
+          <span class="gcta-txt"><b data-i18n="dash.handoffBtn">Request Hand-off</b><small data-i18n="dash.handoffSub">Hand over waste on-the-way</small></span>
+        </button>
+      </div>
+
+      <div class="gis-foot">
+        <ul class="gis-legend">
+          <li><i class="bin-dot s-normal"></i><span data-i18n="dash.legend1">&lt;50% Empty</span></li>
+          <li><i class="bin-dot s-watch"></i><span data-i18n="dash.legend2">50–80% Filling</span></li>
+          <li><i class="bin-dot s-alert"></i><span data-i18n="dash.legend3">&gt;80% Overflow</span></li>
+        </ul>
+      </div>
+
+      <div class="gis-dispatch" data-dispatch-card hidden>
+        <span class="gd-tag" data-i18n="dash.dispatchTag">🚨 High-priority dispatch</span>
+        <p><b data-i18n="dash.dispatchBody">Citizen waiting at Street #4 for hand-off</b><br><span data-i18n="dash.dispatchCat">Category:</span> <span data-dispatch-cat></span> · <span data-i18n="dash.dispatchPt">Pickup:</span> <span data-dispatch-point></span></p>
+        <span class="gd-eta"><span data-i18n="dash.dispatchEta">Crew notified · truck arrives in</span> <span data-dispatch-eta></span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MY REPORTS -->
+<section class="app-section" id="myReports">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <span class="kicker" data-i18n="dash.trackKicker">Live Tracking</span>
+        <h2 data-i18n="dash.myReportsTitle">My Reports</h2>
+        <p data-i18n="dash.myReportsSub">Everything you've submitted — watch it move from Pending → In Progress → Verification → Resolved.</p>
+      </div>
+    </div>
+    <div class="pills reveal" id="pills"></div>
+    <div class="reports-grid" id="reportsGrid"></div>
+    <div class="reports-more" id="reportsMore" hidden>
+      <button class="btn btn-outline" type="button" id="seeMoreBtn" data-i18n="dash.seeMore">See more ➜</button>
+    </div>
+  </div>
+</section>
+
+<!-- COMMUNITY LEADERBOARD -->
+<section class="app-section" id="leaderboard">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <span class="kicker" data-i18n="dash.lbKicker">Community Impact</span>
+        <h2 data-i18n="dash.lbTitle">Community Leaders</h2>
+        <p data-i18n="dash.lbSub">Neighbours who keep your ward clean — ranked by verified reports, confirmations and resolved waste issues.</p>
+      </div>
+      <a class="btn btn-outline btn-small lb-cta" href="#leaderboard" data-i18n="dash.lbCta">View full leaderboard →</a>
+    </div>
+
+    <div class="lb-podium reveal in" id="leadersPodium"></div>
+
+    <ol class="lb-list" id="leadersList"></ol>
+
+    <p class="lb-context" data-i18n="dash.lbContext">Points are earned through verified reports, community confirmations, and resolved waste issues.</p>
+  </div>
+</section>
+
+<!-- RECYCLING TIPS -->
+<section class="app-section" style="background:var(--card); border-block:1px solid var(--line);">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <span class="kicker" data-i18n="dash.tipsKicker">Good to Know</span>
+        <h2 data-i18n="dash.tipsTitle">Recycling Tips</h2>
+        <p data-i18n="dash.tipsSub">Small habits, big difference for your neighbourhood. Here's what actually works at home.</p>
+      </div>
+    </div>
+    <div class="tip-featured" id="tipFeatured"></div>
+    <div class="tips-grid" id="tipsGrid"></div>
+  </div>
+</section>
+
+<!-- REPORT SHEET -->
+<div class="sheet-back" id="reportSheet" aria-hidden="true">
+  <div class="sheet">
+    <div class="sheet-head">
+      <div>
+        <span class="kicker" data-i18n="dash.rKicker">Citizen Action</span>
+        <h3 id="sheetTitle" data-i18n="dash.rTitle">Report a Waste Issue</h3>
+      </div>
+      <button class="icon-btn" data-close-sheet="reportSheet" aria-label="Close">✕</button>
+    </div>
+    <form id="reportForm" novalidate>
+      <div class="form-grid">
+        <div class="field full">
+          <label for="rLoc"><span data-i18n="dash.locLbl">Location / Address</span> <span class="req">*</span></label>
+          <div class="loc-row">
+            <input id="rLoc" type="text" placeholder="Area, street, landmark…" data-i18n-ph="dash.locPh" autocomplete="street-address" />
+            <button type="button" class="btn btn-ghost btn-small" onclick="useMyLoc()" data-i18n="dash.detect">📍 Detect</button>
+            <button type="button" class="btn btn-ghost btn-small" onclick="toggleMap()" data-i18n="dash.mapBtn">🗺️ Map</button>
+          </div>
+          <div id="locMap" hidden></div>
+          <p class="loc-hint" id="locHint" hidden data-i18n="dash.locHint">Tap the map to pin the exact spot — or use 📍 Detect.</p>
+          <span class="err" id="errLoc" data-i18n="dash.errLoc">Please add a location.</span>
+        </div>
+
+        <div class="field full">
+          <label><span data-i18n="dash.photoLbl">Photo</span> <span class="req">*</span> <span class="lbl-note" data-i18n="dash.photoReq">— required · the AI identifies the waste from the image</span></label>
+          <div class="photo-drop" id="photoDrop">
+            <div class="photo-actions">
+              <button type="button" class="btn btn-primary btn-small" onclick="openCamera()" data-i18n="dash.takePhoto">📷 Take Photo</button>
+              <button type="button" class="btn btn-outline btn-small" onclick="openUpload()" data-i18n="dash.uploadImg">🖼️ Upload Image</button>
+            </div>
+            <input type="file" id="rPhotoCamera" accept="image/*" capture="environment" onchange="previewPhoto(event)" hidden />
+            <input type="file" id="rPhotoUpload" accept="image/*" onchange="previewPhoto(event)" hidden />
+            <img id="photoPreview" hidden alt="Selected photo" />
+            <span id="photoText" data-i18n="dash.photoText">Point your camera at the waste — the AI will classify it and suggest a crew.</span>
+          </div>
+          <span class="err" id="errPhoto" data-i18n="dash.errPhoto">Please attach a photo so the AI can identify the waste.</span>
+        </div>
+
+        <div class="field full ai-scan" id="aiScan" hidden>
+          <div class="ai-scan__head">
+            <span class="ai-scan__badge" data-i18n="dash.scanBadge">⏳ AI Scanning…</span>
+            <span class="ai-scan__label" data-i18n="dash.scanLbl">Vision analysis</span>
+          </div>
+          <div class="ai-scan__rows">
+            <div class="ai-row"><span data-i18n="dash.scanType">Detected waste type</span><b id="aiType">—</b></div>
+            <div class="ai-row"><span data-i18n="dash.scanSev">Volume / severity</span><b id="aiSev">—</b></div>
+            <div class="ai-row"><span data-i18n="dash.scanConf">Confidence</span><b id="aiConf">—</b></div>
+          </div>
+          <div class="ai-scan__sum" id="aiSum" hidden></div>
+          <div class="ai-scan__err" id="aiErr" hidden></div>
+        </div>
+
+        <div class="field full">
+          <label for="rDesc"><span data-i18n="dash.descLbl">Description</span> <span class="req">*</span></label>
+          <textarea id="rDesc" maxlength="400" placeholder="e.g. The bin behind the bus stop has been overflowing for 3 days…" data-i18n-ph="dash.descPh"></textarea>
+          <span class="char-count" id="charCount">0 / 400</span>
+          <span class="err" id="errDesc">Please describe the issue briefly.</span>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary form-submit" data-i18n="dash.submit">Submit Report →</button>
+    </form>
+  </div>
+</div>
+
+<!-- CAMERA CAPTURE SHEET -->
+<div class="sheet-back" id="camSheet" aria-hidden="true">
+  <div class="sheet">
+    <div class="sheet-head">
+      <div>
+        <span class="kicker" data-i18n="dash.camKicker">Camera</span>
+        <h3 id="camTitle" data-i18n="dash.camTitle">Take a Photo</h3>
+      </div>
+      <button class="icon-btn" data-close-sheet="camSheet" aria-label="Close">✕</button>
+    </div>
+
+    <div id="camLive">
+      <video id="camVideo" autoplay playsinline muted></video>
+      <div class="cam-controls">
+        <button type="button" class="btn btn-ghost btn-small" id="camFlip" data-i18n="dash.camFlip">🔄 Switch Camera</button>
+        <button type="button" class="btn btn-ghost btn-small" id="camFlash" disabled data-i18n="dash.camFlash">🔦 Flash</button>
+      </div>
+      <p class="cam-hint" id="camHint" data-i18n="dash.camHint">Point your camera at the waste — then tap Capture.</p>
+      <button type="button" class="btn btn-primary btn-block" id="camCapture" data-i18n="dash.camCapture">📸 Capture</button>
+    </div>
+
+    <div id="camCaptured" hidden>
+      <img id="camShot" alt="Captured photo" />
+      <div class="photo-actions">
+        <button type="button" class="btn btn-outline btn-small" id="camRetake" data-i18n="dash.camRetake">↩️ Retake</button>
+        <button type="button" class="btn btn-primary btn-small" id="camUse" data-i18n="dash.camUse">✅ Use this photo</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- REPORT DETAIL SHEET -->
+<div class="sheet-back" id="detailSheet" aria-hidden="true">
+  <div class="sheet">
+    <div class="sheet-head">
+      <div>
+        <span class="kicker" data-i18n="dash.dKicker">Report Details</span>
+        <h3 id="dTitle" data-i18n="dash.dTitle">Report</h3>
+      </div>
+      <button class="icon-btn" data-close-sheet="detailSheet" aria-label="Close">✕</button>
+    </div>
+    <div id="detailBody"></div>
+  </div>
+</div>
+
+<!-- FAB -->
+
+<div class="toast" id="toast"></div>
+
+<!-- ================= HAND-OFF MODAL ================= -->
+<div class="gis-modal" data-handoff-modal aria-hidden="true" role="dialog" aria-modal="true" aria-label="Request an on-the-way hand-off">
+  <div class="gis-modal__card">
+    <button class="gis-modal__close" data-modal-close type="button" aria-label="Close">✕</button>
+    <span class="gis-kicker" data-i18n="dash.handoffKicker">On-the-way hand-off</span>
+    <h3 data-i18n="dash.handoffTitle">Hand over waste to a moving truck.</h3>
+    <p class="gis-modal__lead" data-i18n="dash.handoffLead">We verify the truck’s route passes within 200&nbsp;m of your pinned spot — then alert the crew and start your countdown.</p>
+
+    <div class="gis-field">
+      <label data-i18n="dash.catLbl">Waste category</label>
+      <div class="gis-options" data-cat-options>
+        <button type="button" data-cat="dry" data-i18n="dash.catDry">♻️ Dry / Recyclable</button>
+        <button type="button" data-cat="wet" data-i18n="dash.catWet">🧺 Wet / Organic</button>
+        <button type="button" data-cat="ewaste" data-i18n="dash.catEwaste">🔌 E-Waste</button>
+      </div>
+    </div>
+
+    <div class="gis-field">
+      <label data-i18n="dash.ptLbl">Pickup point</label>
+      <div class="gis-options" data-point-options>
+        <button type="button" data-point="gate" data-i18n="dash.ptGate">🚪 Outside my gate</button>
+        <button type="button" data-point="corner" data-i18n="dash.ptCorner">📍 Street corner</button>
+      </div>
+    </div>
+
+    <p class="gis-buffer ok" data-buffer></p>
+
+    <button class="gis-confirm" data-confirm-handoff type="button" disabled data-i18n="dash.confirmHandoff">Confirm hand-off →</button>
+  </div>
+</div>
+
+<script src="js/lang.js"></script>
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/state.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="js/user.js"></script>
+<script src="js/gis.js"></script>
+</body>
+</html>
