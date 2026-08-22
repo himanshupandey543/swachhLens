@@ -1,0 +1,80 @@
+/* =====================================================================
+ * SwachLens — i18n switcher styles
+ * ---------------------------------------------------------------------
+ * Theme-aware language dropdown. Uses the app design tokens (styles.css
+ * + css/app.css) with --lv-* fallbacks so it also renders on the
+ * landing/auth pages (css/landing.css). Both token sets flip under
+ * [data-theme="dark"].
+ *
+ * color-scheme makes the native <option> popup follow the theme too
+ * (light/dark popup on the platforms that honor it).
+ * ===================================================================== */
+
+.lang-switch {
+  appearance: none;
+  -webkit-appearance: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 40px;
+  max-width: 46vw;
+  padding: 0 34px 0 14px;
+  border-radius: 999px;
+  border: 1px solid var(--line, var(--lv-line));
+  background-color: var(--card, var(--lv-card));
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--green-600, var(--lv-green-600)) 50%),
+    linear-gradient(135deg, var(--green-600, var(--lv-green-600)) 50%, transparent 50%);
+  background-position:
+    calc(100% - 16px) 17px,
+    calc(100% - 11px) 17px;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  color: var(--ink, var(--lv-ink));
+  font-family: var(--lv-font-body, Inter, system-ui, sans-serif);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(11, 18, 15, .05);
+  transition: border-color .18s ease, background-color .18s ease, box-shadow .18s ease;
+}
+
+.lang-switch:hover {
+  border-color: var(--green-500, var(--lv-green-500));
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--green-500, var(--lv-green-500)) 22%, transparent);
+}
+
+.lang-switch:focus-visible {
+  outline: 2px solid var(--green-500, var(--lv-green-500));
+  outline-offset: 2px;
+}
+
+.lang-switch option {
+  background-color: var(--card, var(--lv-card));
+  color: var(--ink, var(--lv-ink));
+}
+
+/* Dark theme — tokens already flip, but force a dark color-scheme so the
+   native dropdown popup renders dark on supporting platforms. */
+html[data-theme="dark"] .lang-switch {
+  color-scheme: dark;
+  background-color: var(--card, var(--lv-card));
+  border-color: var(--line, var(--lv-line));
+  color: var(--ink, var(--lv-ink));
+}
+
+html[data-theme="light"] .lang-switch {
+  color-scheme: light;
+}
+
+/* Compact sizing inside the landing nav on small screens. */
+@media (max-width: 640px) {
+  .lang-switch {
+    height: 38px;
+    font-size: 12px;
+    padding: 0 30px 0 12px;
+    background-position:
+      calc(100% - 14px) 16px,
+      calc(100% - 9px) 16px;
+  }
+}
