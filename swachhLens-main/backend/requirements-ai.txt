@@ -1,0 +1,19 @@
+# OPTIONAL — enables real YOLO inference for POST /api/analyze.
+#
+# The core backend (requirements.txt) stays lean and needs none of these. The
+# /api/analyze endpoint degrades to a deterministic stdlib classifier unless BOTH
+# of the following are true:
+#   1. these packages are installed (into backend/.venv):
+#        pip install -r requirements-ai.txt
+#   2. a trained model exists at  ../ai/models/best.pt
+#          (configurable via the AI_MODEL_PATH env var; see .env.example)
+#
+# Training scripts live in the repo's ai/ folder (convert_taco.py et al.).
+#
+# NOTE: torch wheels for brand-new Python versions may lag; if resolution fails,
+# keep using the fallback (the endpoint still works, just not with real vision).
+torch>=2.0
+torchvision>=0.15
+ultralytics>=8.0
+opencv-python>=4.8
+pillow>=10.0
