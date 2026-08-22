@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Create account — SwachLens</title>
+<meta name="description" content="Create your SwachLens account as a Citizen or a Cleaning-crew Employee. Report waste, work your zone, and watch cleanups get verified." />
+<link rel="stylesheet" href="css/landing.css" />
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body class="auth-page" data-auth-mode="register">
+<a class="lv-skip" href="#authMain">Skip to content</a>
+
+<!-- ================= NAVIGATION ================= -->
+<nav class="lv-nav is-scrolled" aria-label="Main navigation">
+  <div class="lv-wrap lv-nav__inner">
+    <a href="index.html" class="lv-logo">
+      <span class="lv-logo__mark" aria-hidden="true">🚮</span><span>SwachLens</span>
+    </a>
+    <div class="lv-nav__cta">
+      <button class="lv-btn lv-btn--ghost lv-btn--sm" data-theme-btn title="Toggle light / dark mode" style="padding:10px 14px;">🌙</button>
+      <a class="lv-btn lv-btn--ghost lv-btn--sm" href="index.html">← Back to home</a>
+    </div>
+  </div>
+</nav>
+
+<main class="lv-auth" id="authMain">
+  <div class="lv-auth__wrap">
+    <div class="lv-auth__head">
+      <span class="lv-kicker">One platform · Two roles</span>
+      <h1 class="lv-display lv-display--md">Create your account: <span class="lv-em">Citizen or Employee.</span></h1>
+      <p class="lv-lead">Pick your role, set a password, and step into the civic loop.</p>
+    </div>
+
+    <!-- ================= ROLE SELECTOR ================= -->
+    <div class="lv-auth__selector" role="tablist" aria-label="Choose a role" data-role-selector>
+      <button class="lv-auth__role lv-auth__role--citizen is-active" role="tab" aria-selected="true" data-role="USER" data-role-key="citizen">
+        <span><b>Citizen</b><small>Report · Track · Verify</small></span>
+        </button>
+      <button class="lv-auth__role lv-auth__role--employee" role="tab" aria-selected="false" data-role="EMPLOYEE" data-role-key="employee">
+        <span><b>Employee</b><small>Cleaning crew · Area groups</small></span>
+        </button>
+    </div>
+
+    <!-- ================= CITIZEN PANEL ================= -->
+    <section class="lv-auth__panel" data-role-panel="USER" aria-labelledby="citizenTitle">
+      <div class="lv-auth__side lv-auth__side--citizen">
+        <span class="side-role">Citizen</span>
+        <h2 id="citizenTitle">See waste. Report it.<br>Watch it disappear.</h2>
+        <p>Your reports and pickups get a real owner — the crew that clears them and the verification that proves it.</p>
+        <ul class="side-list">
+          <li><span>📸</span> Report garbage with a photo and a pin</li>
+          <li><span>📊</span> AI classifies waste and severity from your image</li>
+          <li><span>🔄</span> Track Pending → In Progress → Verification → Resolved</li>
+          <li><span>✅</span> Confirm cleanups and earn community points</li>
+        </ul>
+        <div class="side-meta">Creating an account routes you to the Citizen dashboard.</div>
+      </div>
+      <div class="lv-auth__form">
+        <h3>Citizen access</h3>
+        <p>Create your account to report and track.</p>
+        <form data-form novalidate>
+          <div class="lv-field">
+            <label for="citizenName">Full name</label>
+            <input data-name id="citizenName" type="text" placeholder="e.g. Aanya Sharma" autocomplete="name" />
+          </div>
+          <div class="lv-field">
+            <label for="citizenEmail">Email</label>
+            <input data-email id="citizenEmail" type="email" placeholder="you@example.com" autocomplete="email" />
+          </div>
+          <div class="lv-field">
+            <label for="citizenPass">Password</label>
+            <input data-pass id="citizenPass" type="password" placeholder="••••••••" autocomplete="new-password" />
+          </div>
+          <div class="lv-field">
+            <label for="citizenConfirmPass">Confirm Password</label>
+            <input data-confirm-pass id="citizenConfirmPass" type="password" placeholder="••••••••" autocomplete="new-password" aria-invalid="false" aria-describedby="citizenConfirmErr" />
+            <span class="lv-field-err" id="citizenConfirmErr" role="alert" hidden>⚠️ Passwords do not match.</span>
+          </div>
+          <div class="lv-auth__err" data-err role="alert"></div>
+          <button class="lv-auth__submit lv-auth__submit--citizen" type="submit" data-submit>
+            <span class="lv-spinner"></span><span data-submit-label>Register as Citizen</span><span class="lv-arr">→</span>
+          </button>
+        </form>
+        <p class="lv-auth__switch">Already have an account? <a href="login.html">Log in</a></p>
+      </div>
+    </section>
+
+    <!-- ================= EMPLOYEE PANEL ================= -->
+    <section class="lv-auth__panel" data-role-panel="EMPLOYEE" aria-labelledby="employeeTitle" hidden>
+      <div class="lv-auth__side lv-auth__side--employee">
+        <span class="side-role">Employee · Cleaning Crew</span>
+        <h2 id="employeeTitle">Turn every assigned cleanup into visible progress.</h2>
+        <p>Your zone's real work queue, your routes, and proof that the city is cleaner because of your crew.</p>
+        <ul class="side-list">
+          <li><span>🗺️</span> Work in an assigned area group</li>
+          <li><span>🧺</span> Clear pickups on an AI-sorted route</li>
+          <li><span>📷</span> Upload proof of completed work</li>
+          <li><span>🎖️</span> Get each job verified by your group lead</li>
+        </ul>
+        <div class="side-meta">Creating an account routes you to the Employee dashboard.</div>
+      </div>
+      <div class="lv-auth__form">
+        <h3>Employee access</h3>
+        <p>Create your account to work your area group.</p>
+        <form data-form novalidate>
+          <div class="lv-field">
+            <label for="employeeName">Full name</label>
+            <input data-name id="employeeName" type="text" placeholder="e.g. Ravi Kumar" autocomplete="name" />
+          </div>
+          <div class="lv-field">
+            <label for="employeeEmail">Email</label>
+            <input data-email id="employeeEmail" type="email" placeholder="crew@example.com" autocomplete="email" />
+          </div>
+          <div class="lv-field">
+            <label for="employeePass">Password</label>
+            <input data-pass id="employeePass" type="password" placeholder="••••••••" autocomplete="new-password" />
+          </div>
+          <div class="lv-field">
+            <label for="employeeConfirmPass">Confirm Password</label>
+            <input data-confirm-pass id="employeeConfirmPass" type="password" placeholder="••••••••" autocomplete="new-password" aria-invalid="false" aria-describedby="employeeConfirmErr" />
+            <span class="lv-field-err" id="employeeConfirmErr" role="alert" hidden>⚠️ Passwords do not match.</span>
+          </div>
+          <div class="lv-auth__err" data-err role="alert"></div>
+          <button class="lv-auth__submit lv-auth__submit--employee" type="submit" data-submit>
+            <span class="lv-spinner"></span><span data-submit-label>Register as Employee</span><span class="lv-arr">→</span>
+          </button>
+        </form>
+        <p class="lv-auth__switch">Already have an account? <a href="login.html">Log in</a></p>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/login.js"></script>
+</body>
+</html>
